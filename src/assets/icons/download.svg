@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="36" viewBox="0 0 38 36">
+    <defs>
+        <filter id="bfng6k9ssa">
+            <feColorMatrix in="SourceGraphic" values="0 0 0 0 0.921569 0 0 0 0 0.341176 0 0 0 0 0.341176 0 0 0 1.000000 0"/>
+        </filter>
+        <filter id="osmvyiknzb">
+            <feColorMatrix in="SourceGraphic" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"/>
+        </filter>
+        <filter id="1wveuvrbac">
+            <feColorMatrix in="SourceGraphic" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"/>
+        </filter>
+        <filter id="3nlmhqlzld">
+            <feColorMatrix in="SourceGraphic" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g filter="url(#bfng6k9ssa)" transform="translate(-491 -761) translate(491 761)">
+                    <g filter="url(#osmvyiknzb)">
+                        <path fill="#EB5757" d="M8 0h22c4.418 0 8 3.582 8 8v19.286c0 4.418-3.582 8-8 8H8c-4.418 0-8-3.582-8-8V8c0-4.418 3.582-8 8-8z"/>
+                    </g>
+                </g>
+                <g filter="url(#3nlmhqlzld)" transform="translate(-491 -761) translate(491 761)">
+                    <g fill="#000" fill-rule="nonzero">
+                        <path d="M14.26 9.753c-.629 0-1.138.51-1.138 1.137v1.774H2.275V10.89c0-.628-.51-1.137-1.137-1.137-.629 0-1.138.51-1.138 1.137v2.911c0 .628.51 1.138 1.138 1.138H14.26c.628 0 1.137-.51 1.137-1.138v-2.91c0-.629-.51-1.138-1.137-1.138z" transform="translate(10.857 9.533)"/>
+                        <path d="M7.355 10.963c.19.19.498.19.687 0l3.987-3.987c.116-.116.15-.29.088-.442-.063-.152-.211-.25-.376-.25H9.87V.887C9.87.398 9.472 0 8.982 0H6.416c-.49 0-.888.397-.888.888v5.395H3.656c-.165 0-.313.099-.375.25-.063.153-.029.327.087.443l3.987 3.987z" transform="translate(10.857 9.533)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

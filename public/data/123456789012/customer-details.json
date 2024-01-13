@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "code": 200,
+  "locale": "en",
+  "message": "OK",
+  "data": {
+    "aadhaar": 123456789012,
+    "email": "test.user@gmail.com",
+    "mobile": "9000000009",
+    "name": "Test User",
+    "dob": "1990-12-01",
+    "gender": "Male",
+    "address": "Some random address"
+  }
+}

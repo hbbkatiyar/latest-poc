@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "code": 200,
+  "locale": "en",
+  "message": "OK",
+  "data": {
+    "aadhaar": 554787508115,
+    "email": "binit.katiyar@gmail.com",
+    "mobile": "9540955646",
+    "name": "Binit Kumar Katiyar",
+    "dob": "1979-05-09",
+    "gender": "Male",
+    "address": "Vill and Post Nasirapur Kanpur Uttar Pradesh 209202"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "code": 200,
+  "locale": "en",
+  "message": "OK",
+  "data": {
+    "sumAssured": 3000000,
+    "premium": 600,
+    "desctiption": "Group Mediclaim Product",
+    "sumAssuredList": [
+      {
+        "title": "3 Lacs", "value": 300000, "premium": 600
+      },
+      {
+        "title": "5 Lacs", "value": 500000, "premium": 800
+      }
+    ],
+    "premiumMapping": {
+      "300000": 600,
+      "500000": 800
+    }
+  }
+}
