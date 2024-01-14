@@ -82,7 +82,6 @@ function CustomerLivelinessCheck({
 
           {capturedImage && (
             <Box m={5}>
-              
               <Box display="flex" justifyContent="center" layout="column">
                 <Box className={webcamContainer}>
                   <img
@@ -91,18 +90,8 @@ function CustomerLivelinessCheck({
                   />
                 </Box>
               </Box>
-              {/* <Box m={1}>
-                <Typography variant="subtitle">
-                  Captured Image Preview{" "}
-                </Typography>
-              </Box> */}
               <Box m={1}>
                 <CheckCircleOutlineIcon className={autoPayIcon} />
-              </Box>
-              <Box m={1}>
-                <Typography variant="subtitle">
-                  Screenshot Preview{" "}
-                </Typography>
               </Box>
             </Box>
           )}
