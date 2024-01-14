@@ -98,12 +98,12 @@ function ProductSelection({
           </Box>
           <Box direction="column" style={{ width: "100%" }}>
             <Grid container spacing={2}>
-              <Grid container item xs={4}>
+              <Grid container item xs>
                 <Box className={formGroup}>
                   <Typography variant="body2">Sum Assured</Typography>
                 </Box>
               </Grid>
-              <Grid container item xs={8}>
+              <Grid container item xs>
                 <Box className={formGroup}>
                   <ChipSelect
                     compact={false}
@@ -119,10 +119,10 @@ function ProductSelection({
               </Grid>
             </Grid>
             <Grid container spacing={2}>
-              <Grid container item xs={4}>
+              <Grid container item xs>
                 <Typography variant="body2">Premium</Typography>
               </Grid>
-              <Grid container item xs={8}>
+              <Grid container item xs>
                 <Box className={formGroup}>
                   {form?.premium ? <TextField
                     id="standard-basic"
