@@ -126,6 +126,11 @@ const Login = ({
     navigateTo(getRoute("dashboard"));
   };
 
+  //partnerId
+  //token
+  //sumAssured
+  //premium
+
   return (
     <Box className={formInputCard}>
       <form

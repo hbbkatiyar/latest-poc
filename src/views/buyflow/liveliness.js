@@ -6,7 +6,7 @@ import ApplicationContext from "../../context/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useStyles } from "./indexFormStyles";
 import { Box, Typography } from "@material-ui/core";
-import { getRoute } from "../../helpers/utils";
+import { getRoute, getStorageItem, setStorageItem } from "../../helpers/utils";
 import { useHistory } from "react-router";
 import Webcam from "react-webcam";
 
@@ -28,12 +28,13 @@ function CustomerLivelinessCheck({
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
   const [modal, setModal] = useState({ open: false });
-  const [capturedImage, setCapturedImage] = useState(null);
+  const [capturedImage, setCapturedImage] = useState(getStorageItem("capturedImage") ? getStorageItem("capturedImage") : null);
 
   const webcamRef = useRef(null);
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setCapturedImage(imageSrc);
+    setStorageItem("capturedImage", imageSrc);
     // Do something with the captured image
   }, [webcamRef]);
 

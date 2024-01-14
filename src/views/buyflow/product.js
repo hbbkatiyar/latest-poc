@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-import useApi from "../../hooks/useApi";
-import CallToAction from "./partials/cta";
-import ErrorMessage from "./partials/error";
-import ChipSelect from "./partials/chipSelect";
 import ApplicationContext from "../../context/index";
+import CallToAction from "./partials/cta";
+import ChipSelect from "./partials/chipSelect";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useStyles } from "./indexFormStyles";
+import ErrorMessage from "./partials/error";
+import useApi from "../../hooks/useApi";
 import { Box, Grid, Hidden, TextField, Typography } from "@material-ui/core";
-import { getRoute, getStorageItem } from "../../helpers/utils";
+import { clearBuyflowStorageData, getRoute, getStorageItem, setStorageItem } from "../../helpers/utils";
 import { ReducerUtils } from "../../constants/reducers";
 import { useHistory } from "react-router";
+import { useStyles } from "./indexFormStyles";
 
 function ProductSelection({
-  classes: { container, main, formGroup, gutterTop, textField, loaderBox },
+  classes: { container, main, formGroup, loaderBox },
 }) {
   const productDetails = useApi(
     `/data/product.json?partnerId=${getStorageItem("partnerId")}`
@@ -26,8 +26,8 @@ function ProductSelection({
   });
   const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
-    sumAssured: 300000,
-    premium: 600,
+    sumAssured: getStorageItem("sumAssured") ? Number(getStorageItem("sumAssured")) : 300000,
+    premium: getStorageItem("premium") ? Number(getStorageItem("premium")) : 600,
     partnerId: getStorageItem("partnerId"),
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -42,10 +42,11 @@ function ProductSelection({
   }, [productDetails]);
 
   useEffect(() => {
-    if (form.sumAssured) {
+    if (form.sumAssured && state?.productDetails?.premiumMapping[form.sumAssured]) {
+      console.log("here", state?.productDetails?.premiumMapping[form.sumAssured]);
       setFormState(
         "premium",
-        state?.productDetails?.premiumMapping[form.sumAssured] ?? 600
+        state?.productDetails?.premiumMapping[form.sumAssured] ? state?.productDetails?.premiumMapping[form.sumAssured] : 600
       );
     }
   }, [form.sumAssured]);
@@ -66,6 +67,10 @@ function ProductSelection({
     console.log(form);
     event.preventDefault();
 
+    clearBuyflowStorageData();
+    setStorageItem("sumAssured", form.sumAssured);
+    setStorageItem("premium", form.premium);
+
     navigateTo(getRoute("customer"));
   };
 
@@ -73,6 +78,10 @@ function ProductSelection({
     console.log("handleClick");
     console.log(form);
     event.preventDefault();
+
+    clearBuyflowStorageData();
+    setStorageItem("sumAssured", form.sumAssured);
+    setStorageItem("premium", form.premium);
 
     navigateTo(getRoute("customer"));
   };
@@ -116,14 +125,14 @@ function ProductSelection({
               </Grid>
               <Grid container item xs={8}>
                 <Box className={formGroup}>
-                  <TextField
+                  {form?.premium ? <TextField
                     id="standard-basic"
                     variant="outlined"
                     value={form?.premium}
                     name="premium"
                     onChange={handleChange}
                     disabled={true}
-                  />
+                  /> : "Please select sum assured"}
                 </Box>
               </Grid>
             </Grid>
@@ -135,7 +144,7 @@ function ProductSelection({
             buttonType={"submit"}
             errorMessage={errorMessage}
             form={form}
-            isDisabled={isFormSubmitted}
+            isDisabled={isFormSubmitted || !form.sumAssured || !form.premium}
             isFormSubmitted={isFormSubmitted}
             text={"Buy Product"}
             handleClick={handleClick}

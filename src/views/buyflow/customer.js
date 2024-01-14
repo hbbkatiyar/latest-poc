@@ -16,7 +16,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { getRoute, getStorageItem, parseMessage } from "../../helpers/utils";
+import { getRoute, getStorageItem, parseMessage, setStorageItem } from "../../helpers/utils";
 import { ReducerUtils } from "../../constants/reducers";
 import { useHistory } from "react-router";
 import { Utils } from "../../constants/utils";
@@ -63,14 +63,14 @@ function CustomerDetails({
     aadhaar_number: "",
     email: "",
     otp: "",
-    mobile: "",
-    name: "",
-    dob: "",
-    gender: "",
-    address: "",
+    mobile: getStorageItem("mobile")  ? getStorageItem("mobile")  : "",
+    name: getStorageItem("name")  ? getStorageItem("name")  : "",
+    dob: getStorageItem("dob")  ? getStorageItem("dob")  : "",
+    gender: getStorageItem("gender")  ? getStorageItem("gender")  : "",
+    address: getStorageItem("address")  ? getStorageItem("address")  : "",
     partnerId: getStorageItem("partnerId"),
-    generateOtp: false,
-    verifyOtp: false,
+    generateOtp: getStorageItem("generateOtp") ? JSON.parse(getStorageItem("generateOtp").toLowerCase()) : false,
+    verifyOtp: getStorageItem("verifyOtp") ? JSON.parse(getStorageItem("verifyOtp").toLowerCase()) : false,
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -234,6 +234,12 @@ function CustomerDetails({
   const handleClick = (event) => {
     event.preventDefault();
 
+    setStorageItem("mobile", form.mobile);
+    setStorageItem("name", form.name);
+    setStorageItem("dob", form.dob);
+    setStorageItem("gender", form.gender);
+    setStorageItem("address", form.address);
+
     navigateTo(getRoute("payment"));
   };
 
@@ -263,6 +269,7 @@ function CustomerDetails({
         ...form,
         generateOtp: true,
       });
+      setStorageItem("generateOtp", true);
     } catch (error) {
       console.log(error);
       cbError(
@@ -278,8 +285,9 @@ function CustomerDetails({
       setErrors([]);
       setIsFormSubmitted(true);
 
+      const folderName = ["123456789012", "554787508115"].indexOf(form.aadhaar_number) > -1 ? form.aadhaar_number : "123456789012";
       const response = await getWebService(
-        `/data/${form.aadhaar_number}/customer-details.json`
+        `/data/${folderName}/customer-details.json`
       );
       const {
         data: { mobile, name, dob, gender, address },
@@ -296,6 +304,7 @@ function CustomerDetails({
         gender,
         address,
       });
+      setStorageItem("verifyOtp", true);
     } catch (error) {
       console.log(error);
       cbError(

@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import { useStyles } from "./indexStyles";
 import {
+  clearBuyflowStorageData,
   getRoute,
   getStorageItem,
   removeStorageItem,
@@ -58,6 +59,8 @@ function SubHeader({
 
     if (item.slug === "logout") {
       removeStorageItem("token");
+      clearBuyflowStorageData();
+
       navigateTo(getRoute("home"));
     } else {
       navigateTo(getRoute(item.slug));

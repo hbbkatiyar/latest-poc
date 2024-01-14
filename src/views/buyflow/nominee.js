@@ -20,7 +20,7 @@ import {
   MenuItem,
   InputLabel,
 } from "@material-ui/core";
-import { getRoute, getStorageItem, parseMessage } from "../../helpers/utils";
+import { getRoute, getStorageItem, parseMessage, setStorageItem } from "../../helpers/utils";
 // import { ReducerUtils } from "../../constants/reducers";
 import { useHistory } from "react-router";
 import { Utils } from "../../constants/utils";
@@ -46,9 +46,9 @@ function NomineeDetails({
   });
   const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
-    nominee_name: "",
-    nominee_dob: "",
-    nominee_relationship: "",
+    nominee_name: getStorageItem("nominee_name")  ? getStorageItem("nominee_name")  : "",
+    nominee_dob: getStorageItem("nominee_dob")  ? getStorageItem("nominee_dob")  : "",
+    nominee_relationship: getStorageItem("nominee_relationship")  ? getStorageItem("nominee_relationship")  : "",
     partnerId: getStorageItem("partnerId"),
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -150,6 +150,10 @@ function NomineeDetails({
 
   const handleClick = (event) => {
     event.preventDefault();
+
+    setStorageItem("nominee_name", form.nominee_name);
+    setStorageItem("nominee_relationship", form.nominee_relationship);
+    setStorageItem("nominee_dob", form.nominee_dob);
 
     navigateTo(getRoute("declaration"));
   };

@@ -265,3 +265,26 @@ export const truncateString = (word = "") => {
     return word;
   }
 };
+
+export const clearBuyflowStorageData = () => {
+  // Product Selection
+  removeStorageItem("sumAssured");
+  removeStorageItem("premium");
+  
+  // Customer Details
+  removeStorageItem("generateOtp");
+  removeStorageItem("verifyOtp");
+  removeStorageItem("mobile");
+  removeStorageItem("name");
+  removeStorageItem("dob");
+  removeStorageItem("gender");
+  removeStorageItem("address");
+
+  // Nominee Details
+  removeStorageItem("nominee_name");
+  removeStorageItem("nominee_relationship");
+  removeStorageItem("nominee_dob");
+
+  // Customer Liveliness Check
+  removeStorageItem("capturedImage");
+};
