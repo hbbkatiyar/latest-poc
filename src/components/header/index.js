@@ -5,6 +5,7 @@ import PolicyIcon from "@material-ui/icons/Policy";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import AssignmentReturnIcon from "@material-ui/icons/AssignmentReturn";
+import HomeIcon from '@material-ui/icons/Home';
 import {
   Box,
   Grid,
@@ -84,6 +85,7 @@ function SubHeader({
     >
       <List>
         {[
+          { text: "Dashboard", slug: "dashboard" },
           { text: "Knowledge Hub", slug: "knowledgeHub" },
           { text: "Login Status", slug: "loginStatus" },
           { text: "Policy COI", slug: "policyCoi" },
@@ -95,10 +97,11 @@ function SubHeader({
             onClick={(event) => clickHandler(event, item, index)}
           >
             <ListItemIcon>
-              {index === 0 && <LibraryBooksIcon />}
-              {index === 1 && <AssignmentReturnIcon />}
-              {index === 2 && <PolicyIcon />}
-              {index === 3 && <ExitToAppIcon />}
+              {index === 0 && <HomeIcon />}
+              {index === 1 && <LibraryBooksIcon />}
+              {index === 2 && <AssignmentReturnIcon />}
+              {index === 3 && <PolicyIcon />}
+              {index === 4 && <ExitToAppIcon />}
             </ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItem>
