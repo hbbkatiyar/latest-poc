@@ -5,7 +5,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { useHistory } from "react-router-dom";
 import { Box, Button, Typography, TextField } from "@material-ui/core";
 import { useStyles } from "./indexStyles";
-import { getRoute, setStorageItem } from "../../helpers/utils";
+import { getQueryStringParameterValue, getRoute, setStorageItem } from "../../helpers/utils";
 import { validations } from "../../messages/validation";
 import { Utils } from "../../constants/utils";
 
@@ -24,6 +24,7 @@ const Login = ({
   classes,
 }) => {
   const history = useHistory();
+  const partnerId = getQueryStringParameterValue("partnerId") ?? 1001;
 
   const [errorMessage, setErrorMessage] = useState({ empcode: "", password: "" });
   const [errors, setErrors] = useState([]);
@@ -119,23 +120,11 @@ const Login = ({
   const submitLogin = (event) => {
     event.preventDefault();
 
-    setStorageItem("partnerId", 1001);
+    setStorageItem("partnerId", partnerId);
     setStorageItem("token", `${form.empcode}_${form.password}`);
 
     navigateTo(getRoute("dashboard"));
   };
-
-
-  /* const cbSuccessSubmitOtp = ({ token }) => {
-    setErrors([]);
-    setStorageItem("token", token);
-    setStorageItem("mobile", form.mobile);
-    navigateTo(getRoute("dashboard"));
-  }; */
-
-
-  
-  /* End: User Content: generate & verify OTP */
 
   return (
     <Box className={formInputCard}>
