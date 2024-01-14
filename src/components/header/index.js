@@ -35,7 +35,8 @@ function SubHeader({
     headerBoxContainer,
     headerText,
     logo,
-    partnerLogo
+    partnerLogo,
+    bomLogo
   },
   classes,
 }) {
@@ -117,12 +118,15 @@ function SubHeader({
       >
         <Box className={headerText}>
           <Grid container spacing={3}>
-            <Grid item xs="4">
-              <Box
+            <Grid item xs="4" style={{ textAlign: "left" }}>
+              <Box>
+                <img src={Images.BOMLogo} className={bomLogo} />
+              </Box>
+              {/* <Box
                 className={partnerLogo}
               >
                 Partner <br /> Logo
-              </Box>
+              </Box> */}
             </Grid>
             {getStorageItem("token") ? (
               <Grid item xs="6">

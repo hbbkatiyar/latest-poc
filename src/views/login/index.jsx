@@ -141,7 +141,7 @@ const Login = ({
           justifyContent={"center"}
           alignItems="center"
         >
-          <Typography variant="body2">Partner Name</Typography>
+          <Typography variant="body2">Bank of Maharashtra</Typography>
         </Box>
 
         <Box className={formGroup}>

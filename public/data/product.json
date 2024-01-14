@@ -4,20 +4,16 @@
   "locale": "en",
   "message": "OK",
   "data": {
-    "sumAssured": 3000000,
-    "premium": 600,
+    "sumAssured": 500000,
+    "premium": 999,
     "name": "Product Name",
     "sumAssuredList": [
       {
-        "title": "3 Lacs", "value": 300000, "premium": 600
-      },
-      {
-        "title": "5 Lacs", "value": 500000, "premium": 800
+        "title": "5 Lacs", "value": 500000, "premium": 999
       }
     ],
     "premiumMapping": {
-      "300000": 600,
-      "500000": 800
+      "500000": 999
     }
   }
 }

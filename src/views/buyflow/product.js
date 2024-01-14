@@ -26,8 +26,8 @@ function ProductSelection({
   });
   const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
-    sumAssured: getStorageItem("sumAssured") ? Number(getStorageItem("sumAssured")) : 300000,
-    premium: getStorageItem("premium") ? Number(getStorageItem("premium")) : 600,
+    sumAssured: getStorageItem("sumAssured") ? Number(getStorageItem("sumAssured")) : 500000,
+    premium: getStorageItem("premium") ? Number(getStorageItem("premium")) : 999,
     partnerId: getStorageItem("partnerId"),
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -46,7 +46,7 @@ function ProductSelection({
       console.log("here", state?.productDetails?.premiumMapping[form.sumAssured]);
       setFormState(
         "premium",
-        state?.productDetails?.premiumMapping[form.sumAssured] ? state?.productDetails?.premiumMapping[form.sumAssured] : 600
+        state?.productDetails?.premiumMapping[form.sumAssured] ? state?.productDetails?.premiumMapping[form.sumAssured] : 999
       );
     }
   }, [form.sumAssured]);
@@ -111,8 +111,7 @@ function ProductSelection({
                     fieldname={"sumAssured"}
                     handleChangeChipSelect={handleChangeChipSelect}
                     options={[
-                      { title: "5 Lacs", value: 500000 },
-                      { title: "3 Lacs", value: 300000 },
+                      { title: "5 Lacs", value: 500000 }
                     ]}
                     selectedItem={form?.sumAssured}
                   />

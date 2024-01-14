@@ -89,4 +89,7 @@ export const useStyles = (theme) =>
       width: "108px",
       height: "25px",
     },
+    bomLogo: {
+      height: "25px"
+    }
   });

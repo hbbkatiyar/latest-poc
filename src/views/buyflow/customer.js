@@ -141,9 +141,10 @@ function CustomerDetails({
         isValid,
         isValid ? "" : validations[fieldName].valid
       );
-    } else if (touchFields[fieldName]) {
-      setErrorMessageState(fieldName, validations[fieldName].required);
     }
+    // else if (touchFields[fieldName]) {
+    //   setErrorMessageState(fieldName, validations[fieldName].required);
+    // }
   };
 
   const validateDateOfBirth = (fieldName) => {
@@ -365,9 +366,7 @@ function CustomerDetails({
                     onClick={handleGenerateOtp}
                     {...((isFormSubmitted ||
                       !form.aadhaar_number ||
-                      errorMessage.aadhaar_number ||
-                      !form.email ||
-                      errorMessage.email) && { disabled: true })}
+                      errorMessage.aadhaar_number) && { disabled: true })}
                   >
                     OTP
                   </Button>
