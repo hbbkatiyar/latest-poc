@@ -47,7 +47,7 @@ const Login = ({
 
   useEffect(() => validateRequiredInput("empcode"), [form.empcode]);
 
-  useEffect(() => validatePassword(), [form.password]);
+  useEffect(() => validateRequiredInput("password"), [form.password]);
 
   const validateEmployeeCode = () => {
     if (form.empcode) {
@@ -125,11 +125,6 @@ const Login = ({
 
     navigateTo(getRoute("dashboard"));
   };
-
-  //partnerId
-  //token
-  //sumAssured
-  //premium
 
   return (
     <Box className={formInputCard}>

@@ -1,7 +1,7 @@
 export const validations = {
   aadhaar_number: {
     required: "Please enter aadhaar number",
-    valid: "Please enter valid aadhaar number"
+    valid: "Please enter 12 digits aadhaar number"
   },
   address: {
     required: "Please enter address",

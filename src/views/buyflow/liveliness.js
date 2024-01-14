@@ -96,6 +96,8 @@ function CustomerLivelinessCheck({
             </Box>
           )}
 
+          <br />
+          <br />
           <CallToAction
             buttonType={"submit"}
             errorMessage={errorMessage}
