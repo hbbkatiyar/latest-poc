@@ -25,18 +25,5 @@ export const routes = {
 };
 
 export const sectionTitle = {
-  "/": DASHBOARD_SECTION,
-  "/dashboard": DASHBOARD_SECTION,
-  "/claims": CLAIMS_LISTING,
-  "/claim/new": NEW_CLAIM,
-  "/loan/summary": LOAN_ELIGIBILITY_SUMMARY,
-  "/loan/documents": LOAN_DOCUMENTS,
-  "/loan/acknowledgement": LOAN_ACKNOWLEDGEMENT,
-  "/loan/handover": LOAN_HANDOVER,
-};
-
-export const durationMapping = {
-  0: 'today',
-  1: 'thisWeek',
-  2: 'thisMonth'
+  
 };

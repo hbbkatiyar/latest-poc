@@ -141,7 +141,7 @@ const theme = createMuiTheme({
         borderRadius: "0px",
         padding: "14px 80px",
         "&disabled": {
-          backgroundColor: "#ff8984",
+          backgroundColor: "#ffd900",
         },
       },
     },
@@ -172,7 +172,7 @@ const theme = createMuiTheme({
         fontSize: "18px",
         fontWeight: 300,
         "&$focused": {
-          color: "#ff585d",
+          color: "#ffd900",
           backgroundColor: "#ffffff",
           fontSize: "18px",
           fontWeight: 500,
@@ -193,7 +193,7 @@ const theme = createMuiTheme({
     },
     MuiFormHelperText: {
       root: {
-        color: "#ff585d",
+        color: "#ffd900",
       },
     },
     MuiTimelineItem: {

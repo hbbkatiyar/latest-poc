@@ -1,5 +1,3 @@
-import { Utils } from "../constants/utils";
-
 export const validations = {
   aadhaar_number: {
     required: "Please enter aadhaar number",

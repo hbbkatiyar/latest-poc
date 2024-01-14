@@ -265,7 +265,3 @@ export const truncateString = (word = "") => {
     return word;
   }
 };
-
-export const renderClaimStatus = (status) => {
-  return CLAIM_STATUS_MAPPING?.[status] ? CLAIM_STATUS_MAPPING?.[status] : CLAIM_STATUS_IN_PROGRESS;
-};

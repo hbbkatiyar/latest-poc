@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import SubHeader from "../subHeader";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Box } from "@material-ui/core";
-import { getSectionTitle } from "../../helpers/proposal";
+import { getSectionTitle } from "../../helpers/buyflow";
 import { useHistory, useLocation } from "react-router-dom";
 import { useStyles } from "./buyflowStyles";
 

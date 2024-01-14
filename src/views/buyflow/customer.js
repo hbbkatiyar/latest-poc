@@ -26,7 +26,7 @@ import {
   buildSystemErrorMessage,
   getMinDobDate,
   getMaxDobDate,
-} from "../../helpers/proposal";
+} from "../../helpers/buyflow";
 import { FORM_FIELD_MOBILE } from "../../constants/field";
 import { FORMAT_DD_MM_YYYY } from "../../constants/index";
 
@@ -324,7 +324,7 @@ function CustomerDetails({
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box m={3}>
-          <Typography variant="subtitle2">Customer Details e-KYC</Typography>
+          <Typography variant="h5">Customer Details <br/>e-KYC</Typography>
         </Box>
 
         {!form.generateOtp && !form.verifyOtp && (

@@ -8,7 +8,7 @@ function LoginStatus({ classes: { container, main, section } }) {
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box>
-          <Typography>Login Status</Typography>
+          <Typography variant="h5">Login Status</Typography>
         </Box>
         <Box m={2} justifyContent="left" className={section}>
           <Typography variant="body2">

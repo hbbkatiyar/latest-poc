@@ -3,7 +3,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Box, Button, Typography } from "@material-ui/core";
 import { useStyles } from "../indexFormStyles";
-import { BUTTON_CONFIRM_AND_ISSUE_POLICY } from "../../../constants/index";
 
 function CallToAction(props) {
   const {
@@ -14,7 +13,7 @@ function CallToAction(props) {
     handleClick = () => {},
     isDisabled = false,
     isFormSubmitted = false,
-    text = BUTTON_CONFIRM_AND_ISSUE_POLICY,
+    text = "Submit",
     variant = "contained"
   } = props;
 

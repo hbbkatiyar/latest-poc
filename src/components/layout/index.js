@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import SubHeader from "../subHeader";
+import Header from "../header";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Box } from "@material-ui/core";
 import { useHistory, useLocation } from "react-router-dom";
@@ -22,7 +22,7 @@ function MainLayout({ children, ...rest }) {
 
   return (
     <Box className={buyflowContainer}>
-      <SubHeader onClick={() => {}} title={""} isBackButtonVisible={false} />
+      <Header onClick={() => {}} title={""} isBackButtonVisible={false} />
       {children}
     </Box>
   );

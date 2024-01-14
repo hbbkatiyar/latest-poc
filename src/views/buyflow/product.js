@@ -3,7 +3,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import useApi from "../../hooks/useApi";
 import CallToAction from "./partials/cta";
 import ErrorMessage from "./partials/error";
-import ChipSelect from "../../components/common/chipSelectHook";
+import ChipSelect from "./partials/chipSelect";
 import ApplicationContext from "../../context/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useStyles } from "./indexFormStyles";
@@ -82,10 +82,10 @@ function ProductSelection({
       <Box container={"true"} justifyContent="center" className={container}>
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
           <Box m={3}>
-            <Typography variant="subtitle2">Product Selection</Typography>
+            <Typography variant="h5">Product Selection</Typography>
           </Box>
           <Box m={3}>
-            <Typography variant="body2">Product Name</Typography>
+            <Typography variant="body2">{state?.productDetails?.name}</Typography>
           </Box>
           <Box direction="column" style={{ width: "100%" }}>
             <Grid container spacing={2}>

@@ -8,7 +8,7 @@ function KnowledgeHub({ classes: { container, main, section } }) {
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box>
-          <Typography>Knowledge Hub</Typography>
+          <Typography variant="h5">Knowledge Hub</Typography>
         </Box>
         <Box m={2} justifyContent="left" className={section}>
           <Typography variant="body2">Factsheet Section</Typography>

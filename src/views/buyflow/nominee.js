@@ -30,7 +30,7 @@ import {
   buildSystemErrorMessage,
   getMinDobDate,
   getMaxDobDate,
-} from "../../helpers/proposal";
+} from "../../helpers/buyflow";
 import { FORM_FIELD_MOBILE } from "../../constants/field";
 import { FORMAT_DD_MM_YYYY } from "../../constants/index";
 
@@ -185,7 +185,7 @@ function NomineeDetails({
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box m={3}>
-          <Typography variant="subtitle2">Nominee Details</Typography>
+          <Typography variant="h5">Nominee Details</Typography>
         </Box>
 
         <form noValidate autoComplete="off" onSubmit={onSubmit}>

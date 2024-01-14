@@ -8,7 +8,7 @@ function PolicyCoi({ classes: { container, main, section } }) {
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box>
-          <Typography>Policy COI</Typography>
+          <Typography variant="h5">Policy COI</Typography>
         </Box>
         <Box m={2} justifyContent="left" className={section}>
           <Typography variant="body2">

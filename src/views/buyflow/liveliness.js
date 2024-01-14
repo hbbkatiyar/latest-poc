@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useCallback } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CallToAction from "./partials/cta";
 import ErrorMessage from "./partials/error";
@@ -8,11 +8,17 @@ import { useStyles } from "./indexFormStyles";
 import { Box, Typography } from "@material-ui/core";
 import { getRoute } from "../../helpers/utils";
 import { useHistory } from "react-router";
-import { Images } from "../../constants/images";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import Webcam from "react-webcam";
 
-function BuyflowPayment({
-  classes: { autoPay, autoPayIcon, container, main, loaderBox },
+function CustomerLivelinessCheck({
+  classes: {
+    capturePhoto,
+    policyIssuance,
+    container,
+    main,
+    loaderBox,
+    webcamContainer,
+  },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
@@ -22,41 +28,61 @@ function BuyflowPayment({
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
   const [modal, setModal] = useState({ open: false });
+  const [capturedImage, setCapturedImage] = useState(null);
+
+  const webcamRef = useRef(null);
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setCapturedImage(imageSrc);
+    // Do something with the captured image
+  }, [webcamRef]);
 
   const navigateTo = (pathname) => history.push({ pathname });
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    navigateTo(getRoute("nominee"));
+    navigateTo(getRoute("dashboard"));
   };
 
   const handleClick = (event) => {
     event.preventDefault();
 
-    navigateTo(getRoute("nominee"));
+    navigateTo(getRoute("dashboard"));
   };
 
   return isLoaded ? (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box m={3}>
-          <Typography variant="h5">Payment Section</Typography>
+          <Typography variant="h5">Customer liveliness Check</Typography>
         </Box>
+
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
-          <Box m={3}>
-            <img src={Images.QRCode} />
-          </Box>
-          <Box m={3}>
-            <Box className={autoPay}>
-              <Typography>UPI + AutoPay UPI successfully Registered</Typography>
+          <Box m={1} display="flex" justifyContent="center">
+            <Box m={1} className={webcamContainer}>
+              <Webcam width={300} audio={false} ref={webcamRef} />
             </Box>
-            <CheckCircleOutlineIcon
-              className={autoPayIcon}
-            />
+          </Box>
+          <Box display="flex" justifyContent="center">
+            <Box className={capturePhoto} onClick={capture} title={"Click to capture photo"}>&nbsp;</Box>
           </Box>
 
-          <ErrorMessage errors={errors} modal={modal} />
+          {capturedImage && (
+            <Box m={5}>
+              <Box m={1}>
+                <Typography variant="subtitle">Image Preview</Typography>
+              </Box>
+              <Box display="flex" justifyContent="center" layout="column">
+                <Box className={webcamContainer}>
+                  <img src={capturedImage} style={{ width: "200px", border: "5px solid #FFFFFF" }} />
+                </Box>
+              </Box>
+            </Box>
+          )}
+
+          <br />
+          <br />
 
           <CallToAction
             buttonType={"submit"}
@@ -64,7 +90,7 @@ function BuyflowPayment({
             form={form}
             isDisabled={isFormSubmitted}
             isFormSubmitted={isFormSubmitted}
-            text={"Next"}
+            text={"Dashboard"}
             handleClick={handleClick}
           />
         </form>
@@ -77,4 +103,6 @@ function BuyflowPayment({
   );
 }
 
-export default withStyles(useStyles, { withTheme: true })(BuyflowPayment);
+export default withStyles(useStyles, { withTheme: true })(
+  CustomerLivelinessCheck
+);

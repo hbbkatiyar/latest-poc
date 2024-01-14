@@ -1,5 +1,4 @@
 import { createStyles } from "@material-ui/core";
-import { Color } from "../../constants/colors";
 
 export const useStyles = (theme) =>
   createStyles({
@@ -25,7 +24,7 @@ export const useStyles = (theme) =>
       },
     },
     badgeBox: {
-      backgroundColor: Color.toffeeSkyBlue.main,
+      backgroundColor: "#d4d3d3",
       padding: theme.spacing(0),
       borderRadius: "16px",
       minWidth: "140px",

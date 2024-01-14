@@ -11,8 +11,8 @@ import { useHistory } from "react-router";
 import { Images } from "../../constants/images";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
-function BuyflowPayment({
-  classes: { autoPay, autoPayIcon, container, main, loaderBox },
+function BuyflowApplicationSubmitted({
+  classes: { policyIssuance, container, main, loaderBox },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
@@ -28,34 +28,34 @@ function BuyflowPayment({
   const onSubmit = (event) => {
     event.preventDefault();
 
-    navigateTo(getRoute("nominee"));
+    navigateTo(getRoute("liveliness"));
   };
 
   const handleClick = (event) => {
     event.preventDefault();
 
-    navigateTo(getRoute("nominee"));
+    navigateTo(getRoute("liveliness"));
   };
 
   return isLoaded ? (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
-        <Box m={3}>
-          <Typography variant="h5">Payment Section</Typography>
+      <Box m={3}>
+          <Typography variant="h5">Application Submitted</Typography>
         </Box>
-        <form noValidate autoComplete="off" onSubmit={onSubmit}>
-          <Box m={3}>
-            <img src={Images.QRCode} />
-          </Box>
-          <Box m={3}>
-            <Box className={autoPay}>
-              <Typography>UPI + AutoPay UPI successfully Registered</Typography>
-            </Box>
-            <CheckCircleOutlineIcon
-              className={autoPayIcon}
-            />
-          </Box>
 
+        <form noValidate autoComplete="off" onSubmit={onSubmit}>
+          <Box m={3} textAlign={"left"}>
+            <Typography variant="body2">We appreciate your interest in joining our family.</Typography>
+          </Box>
+          <br /><br />
+          <Box m={3} display="flex" justifyContent="center">
+            <Box className={policyIssuance}>
+              <Typography>Policy Issuance</Typography>
+            </Box>
+          </Box>
+          <br />
+          <br />
           <ErrorMessage errors={errors} modal={modal} />
 
           <CallToAction
@@ -64,7 +64,7 @@ function BuyflowPayment({
             form={form}
             isDisabled={isFormSubmitted}
             isFormSubmitted={isFormSubmitted}
-            text={"Next"}
+            text={"Close"}
             handleClick={handleClick}
           />
         </form>
@@ -77,4 +77,4 @@ function BuyflowPayment({
   );
 }
 
-export default withStyles(useStyles, { withTheme: true })(BuyflowPayment);
+export default withStyles(useStyles, { withTheme: true })(BuyflowApplicationSubmitted);

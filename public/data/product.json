@@ -6,7 +6,7 @@
   "data": {
     "sumAssured": 3000000,
     "premium": 600,
-    "desctiption": "Group Mediclaim Product",
+    "name": "Product Name",
     "sumAssuredList": [
       {
         "title": "3 Lacs", "value": 300000, "premium": 600
