@@ -280,6 +280,9 @@ export const clearBuyflowStorageData = () => {
   removeStorageItem("gender");
   removeStorageItem("address");
 
+  // Payment Details
+  removeStorageItem("upi_id");
+
   // Nominee Details
   removeStorageItem("nominee_name");
   removeStorageItem("nominee_relationship");
