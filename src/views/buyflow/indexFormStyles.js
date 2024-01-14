@@ -321,11 +321,15 @@ export const useStyles = (theme) =>
     },
     webcamContainer: {
       backgroundColor: "#FFFFFF",
-      width: "320px",
-      padding: "20px 10px 20px 10px",
+      width: "220px",
+      padding: "15px 5px 10px 5px",
       border: "1px solid #FFFFFF",
       borderTop: "0px",
       backgroundColor: "#F3F3F3",
       boxShadow: "10px 10px 5px #aaaaaa",
+    },
+    screenshotIcon: {
+      color: "#05B050",
+      fontSize: "20px",
     },
   });

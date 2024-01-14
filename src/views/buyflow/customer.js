@@ -354,7 +354,7 @@ function CustomerDetails({
                   />
                 </Box>
               </Grid>
-              <Grid container item xs>
+              <Grid container item xs="4">
                 <Box className={formGroup}>
                   <Button
                     type={"click"}
@@ -429,7 +429,7 @@ function CustomerDetails({
                       disabled: true,
                     })}
                   >
-                    Submit
+                    Verify
                   </Button>
                 </Box>
               </Grid>

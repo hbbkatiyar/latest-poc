@@ -172,7 +172,7 @@ const theme = createMuiTheme({
         fontSize: "18px",
         fontWeight: 300,
         "&$focused": {
-          color: "#ffd900",
+          color: "#ff585d",
           backgroundColor: "#ffffff",
           fontSize: "18px",
           fontWeight: 500,
@@ -193,7 +193,7 @@ const theme = createMuiTheme({
     },
     MuiFormHelperText: {
       root: {
-        color: "#ffd900",
+        color: "#ff585d",
       },
     },
     MuiTimelineItem: {
