@@ -281,7 +281,7 @@ export const useStyles = (theme) =>
     partnerName: {
       display: "flex",
       margin: theme.spacing(1, 0, 1, 0),
-      padding: theme.spacing(2, 0, 2, 0),
+      padding: theme.spacing(1, 0, 1, 0),
       backgroundColor: "#ffd900"
     },
     errorMsg: {
