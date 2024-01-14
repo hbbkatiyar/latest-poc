@@ -21,16 +21,20 @@ export const useStyles = (theme) =>
         padding: theme.spacing(2, 3, 0),
         textAlign: "left",
         width: "100%",
+        height: "40px"
       },
       [theme.breakpoints.up("sm")]: {
         padding: theme.spacing(2, 3, 1),
         textAlign: "left",
         width: "100%",
+
+        height: "40px"
       },
       [theme.breakpoints.up("md")]: {
         padding: theme.spacing(2, 10, 1),
         textAlign: "left",
         width: "100%",
+        height: "40px"
       },
     },
     headerBoxContainer: {
