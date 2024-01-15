@@ -8,7 +8,7 @@ const useStyles = (theme) => ({
     backgroundColor: theme.palette.primary.light,
     border: "1px solid #ffd900",
     borderRadius: "5px",
-    color: "#EF7878",
+    color: "#000000", //"#EF7878",
     fontWeight: 300,
     "&:hover, &:focus": {
       backgroundColor: "#ffd900 !important",
@@ -25,7 +25,7 @@ const useStyles = (theme) => ({
   },
   chip: {
     backgroundColor: "#ECF0F4",
-    border: "1px solid #ffd900",
+    border: "1px solid #ECF0F4",
     borderRadius: "5px",
     color: "#22334f",
     fontWeight: 300,

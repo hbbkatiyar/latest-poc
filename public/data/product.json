@@ -4,15 +4,19 @@
   "locale": "en",
   "message": "OK",
   "data": {
-    "sumAssured": 500000,
-    "premium": 999,
-    "name": "Product Name",
+    "sumAssured": 300000,
+    "premium": 599,
+    "name": "Aviva New Group Term Life",
     "sumAssuredList": [
+      {
+        "title": "3 Lacs", "value": 300000, "premium": 599
+      },
       {
         "title": "5 Lacs", "value": 500000, "premium": 999
       }
     ],
     "premiumMapping": {
+      "300000": 599,
       "500000": 999
     }
   }

@@ -49,9 +49,11 @@ export const useStyles = (theme) =>
       },
     },
     buttonBox: {
-      display: "inline-flex",
+      display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      position: "relative",
+      marginTop: "60%",
     },
     buttonText: {
       display: "flex",
@@ -60,11 +62,10 @@ export const useStyles = (theme) =>
     },
     buyButton: {
       borderRadius: "1vh",
-      textTransform: "capitalize",
+      // textTransform: "capitalize",
     },
     container: {
-      width: "100%",
-      margin: "0 auto",
+      margin: theme.spacing(1, 0, 1, 0),
     },
     cursorPointer: {
       cursor: "pointer",
@@ -177,7 +178,7 @@ export const useStyles = (theme) =>
       display: "flex",
       flexDirection: "column",
       justifyContent: "flex-start",
-      padding: theme.spacing(2, 1, 0, 1),
+      padding: theme.spacing(3, 1, 0, 1),
       textAlign: "center",
     },
     mainCta: {
@@ -244,12 +245,15 @@ export const useStyles = (theme) =>
       },
     },
     question: {
+      margin: theme.spacing(1, 0, 1, 0),
       [theme.breakpoints.down("sm")]: {
-        fontSize: "14px",
+        fontSize: "18px",
       },
-      [theme.breakpoints.up("sm")]: {},
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "18px",
+      },
       [theme.breakpoints.up("md")]: {
-        fontSize: "20px",
+        fontSize: "18px",
       },
     },
     smallText: {
@@ -331,5 +335,12 @@ export const useStyles = (theme) =>
     screenshotIcon: {
       color: "#05B050",
       fontSize: "20px",
+    },
+    productName: {
+      display: "flex",
+      fontSize: "18px",
+      margin: theme.spacing(3, 0, 3, 0),
+      padding: theme.spacing(1, 0, 1, 0),
+      backgroundColor: "#ffd900",
     },
   });

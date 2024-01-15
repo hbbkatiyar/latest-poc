@@ -110,7 +110,7 @@ export const useStyles = (theme) =>
     button: {
       borderRadius: "8px",
       padding: theme.spacing(2, 3),
-      textTransform: "capitalize",
+      // textTransform: "capitalize",
       [theme.breakpoints.down("sm")]: {
         position: "none",
       },
@@ -122,6 +122,11 @@ export const useStyles = (theme) =>
         // bottom: 100,
         // right: 10
       },
+    },
+    buttonText: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
     },
     subTitle: {
       [theme.breakpoints.down("sm")]: {
@@ -306,5 +311,10 @@ export const useStyles = (theme) =>
       textAlign: "right",
       width: "100%",
       margin: theme.spacing(1, 0, 0, 0)
-    }
+    },
+    mainCta: {
+      width: "100%",
+      whiteSpace: "nowrap",
+      padding: theme.spacing(0, 3),
+    },
   });

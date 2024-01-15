@@ -5,13 +5,19 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { useHistory } from "react-router-dom";
 import { Box, Button, Typography, TextField } from "@material-ui/core";
 import { useStyles } from "./indexStyles";
-import { getQueryStringParameterValue, getRoute, setStorageItem } from "../../helpers/utils";
+import {
+  getQueryStringParameterValue,
+  getRoute,
+  setStorageItem,
+} from "../../helpers/utils";
 import { validations } from "../../messages/validation";
 import { Utils } from "../../constants/utils";
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const Login = ({
   classes: {
+    buttonText,
+    mainCta,
     formInputCard,
     input,
     mobileInput,
@@ -28,8 +34,11 @@ const Login = ({
 }) => {
   const history = useHistory();
   const partnerId = getQueryStringParameterValue("partnerId") ?? 1001;
-  const [inputType, setInputType] = useState('password');
-  const [errorMessage, setErrorMessage] = useState({ empcode: "", password: "" });
+  const [inputType, setInputType] = useState("password");
+  const [errorMessage, setErrorMessage] = useState({
+    empcode: "",
+    password: "",
+  });
   const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
     empcode: "",
@@ -38,7 +47,10 @@ const Login = ({
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [onfocusMobile, setOnfocusMobile] = useState(false);
-  const [touchFields, setTouchFields] = useState({ empcode: false, password: false });
+  const [touchFields, setTouchFields] = useState({
+    empcode: false,
+    password: false,
+  });
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -54,12 +66,10 @@ const Login = ({
 
   const validateEmployeeCode = () => {
     if (form.empcode) {
-      
     } else if (touchFields.empcode) {
       setErrorMessageState("empcode", validations.empcode.required);
     }
   };
-
 
   const validateRequiredInput = (fieldName) => {
     if (form[fieldName]) {
@@ -130,7 +140,7 @@ const Login = ({
   };
 
   const toggleInput = () => {
-    setInputType(inputType === 'password' ? 'text' : 'password')
+    setInputType(inputType === "password" ? "text" : "password");
   };
 
   return (
@@ -142,7 +152,7 @@ const Login = ({
         onSubmit={submitLogin}
       >
         <Box m={1}>&nbsp;</Box>
-        
+
         <Box
           className={partnerName}
           justifyContent={"center"}
@@ -152,7 +162,9 @@ const Login = ({
         </Box>
 
         <Box className={formGroup}>
-          <Typography variant={"h6"} className={question}>Employee ID</Typography>
+          <Typography variant={"body2"} className={question}>
+            Employee ID
+          </Typography>
           <TextField
             id="standard-basic"
             variant="outlined"
@@ -169,7 +181,9 @@ const Login = ({
         </Box>
 
         <Box className={formGroup}>
-        <Typography variant={"h6"} className={question}>Password</Typography>
+          <Typography variant={"body2"} className={question}>
+            Password
+          </Typography>
           <TextField
             type={inputType}
             id="standard-basic"
@@ -184,7 +198,11 @@ const Login = ({
             // placeholder="Password"
             helperText={errorMessage.password}
           />
-          {form.password && <Box className={passwordIcon}><VisibilityIcon onClick={toggleInput} /></Box>}
+          {form.password && (
+            <Box className={passwordIcon}>
+              <VisibilityIcon onClick={toggleInput} />
+            </Box>
+          )}
         </Box>
 
         {errors.length > 0 && (
@@ -215,11 +233,17 @@ const Login = ({
             variant={"contained"}
             color="primary"
             className={button}
-          fullWidth
-            {...((isFormSubmitted || !form.empcode || !form.password || errorMessage.empcode || errorMessage.password) && {
+            fullWidth
+            {...((isFormSubmitted ||
+              !form.empcode ||
+              !form.password ||
+              errorMessage.empcode ||
+              errorMessage.password) && {
               disabled: true,
             })}
           >
+            <Box className={buttonText}>
+          <Typography variant={"body1"} className={mainCta}>
             {!isFormSubmitted ? (
               renderHTML("Login")
             ) : (
@@ -228,7 +252,9 @@ const Login = ({
                 className={classes.loaderStyle}
                 size={20}
               />
-            )}
+                )}
+                </Typography>
+        </Box>
           </Button>
         </Box>
       </form>

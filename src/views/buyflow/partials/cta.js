@@ -18,13 +18,14 @@ function CallToAction(props) {
   } = props;
 
   return (
-    <Box m={2} className={buttonBox}>
+    <Box className={buttonBox}>
       <Button
         type={buttonType}
         variant={variant}
         className={`${buyButton} ${button}`}
         color={color}
         onClick={handleClick}
+        fullWidth
         {...(isDisabled && { disabled: true })}
       >
         <Box className={buttonText}>
