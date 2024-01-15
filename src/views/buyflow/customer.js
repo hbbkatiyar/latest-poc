@@ -16,7 +16,12 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { getRoute, getStorageItem, parseMessage, setStorageItem } from "../../helpers/utils";
+import {
+  getRoute,
+  getStorageItem,
+  parseMessage,
+  setStorageItem,
+} from "../../helpers/utils";
 import { ReducerUtils } from "../../constants/reducers";
 import { useHistory } from "react-router";
 import { Utils } from "../../constants/utils";
@@ -40,10 +45,12 @@ function CustomerDetails({
     loaderBox,
     buyButton,
     button,
+    question,
     mainCta,
     text,
     buttonText,
     loaderStyle,
+    marginTop20,
   },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
@@ -63,14 +70,19 @@ function CustomerDetails({
     aadhaar_number: "",
     email: "",
     otp: "",
-    mobile: getStorageItem("mobile")  ? getStorageItem("mobile")  : "",
-    name: getStorageItem("name")  ? getStorageItem("name")  : "",
-    dob: getStorageItem("dob")  ? getStorageItem("dob")  : "",
-    gender: getStorageItem("gender")  ? getStorageItem("gender")  : "",
-    address: getStorageItem("address")  ? getStorageItem("address")  : "",
+    email: getStorageItem("email") ? getStorageItem("email") : "",
+    mobile: getStorageItem("mobile") ? getStorageItem("mobile") : "",
+    name: getStorageItem("name") ? getStorageItem("name") : "",
+    dob: getStorageItem("dob") ? getStorageItem("dob") : "",
+    gender: getStorageItem("gender") ? getStorageItem("gender") : "",
+    address: getStorageItem("address") ? getStorageItem("address") : "",
     partnerId: getStorageItem("partnerId"),
-    generateOtp: getStorageItem("generateOtp") ? JSON.parse(getStorageItem("generateOtp").toLowerCase()) : false,
-    verifyOtp: getStorageItem("verifyOtp") ? JSON.parse(getStorageItem("verifyOtp").toLowerCase()) : false,
+    generateOtp: getStorageItem("generateOtp")
+      ? JSON.parse(getStorageItem("generateOtp").toLowerCase())
+      : false,
+    verifyOtp: getStorageItem("verifyOtp")
+      ? JSON.parse(getStorageItem("verifyOtp").toLowerCase())
+      : false,
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -235,6 +247,7 @@ function CustomerDetails({
   const handleClick = (event) => {
     event.preventDefault();
 
+    setStorageItem("email", form.email);
     setStorageItem("mobile", form.mobile);
     setStorageItem("name", form.name);
     setStorageItem("dob", form.dob);
@@ -286,12 +299,15 @@ function CustomerDetails({
       setErrors([]);
       setIsFormSubmitted(true);
 
-      const folderName = ["123456789012", "554787508115"].indexOf(form.aadhaar_number) > -1 ? form.aadhaar_number : "123456789012";
+      const folderName =
+        ["123456789012", "554787508115"].indexOf(form.aadhaar_number) > -1
+          ? form.aadhaar_number
+          : "123456789012";
       const response = await getWebService(
         `/data/${folderName}/customer-details.json`
       );
       const {
-        data: { mobile, name, dob, gender, address },
+        data: { email, mobile, name, dob, gender, address },
         data,
       } = response.data;
       console.log(data);
@@ -299,6 +315,7 @@ function CustomerDetails({
       setForm({
         ...form,
         verifyOtp: true,
+        email,
         mobile,
         name,
         dob,
@@ -334,7 +351,10 @@ function CustomerDetails({
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box m={3}>
-          <Typography variant="h5">Customer Details <br/>e-KYC</Typography>
+          <Typography variant="h5">
+            Customer Details <br />
+            e-KYC
+          </Typography>
         </Box>
 
         {!form.generateOtp && !form.verifyOtp && (
@@ -372,24 +392,6 @@ function CustomerDetails({
                   </Button>
                 </Box>
               </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid container item xs>
-                <Box className={formGroup}>
-                  <TextField
-                    id="standard-basic"
-                    variant="outlined"
-                    value={form.email}
-                    name="email"
-                    onInput={validateInputLength}
-                    onChange={handleChange}
-                    autoComplete="off"
-                    placeholder="Email ID"
-                    helperText={errorMessage.email}
-                  />
-                </Box>
-              </Grid>
-              <Grid container item xs="4"></Grid>
             </Grid>
           </Box>
         )}
@@ -439,127 +441,124 @@ function CustomerDetails({
         {form.verifyOtp && (
           <form noValidate autoComplete="off" onSubmit={onSubmit}>
             <Box direction="column" style={{ width: "100%" }}>
-              <Grid container spacing={2}>
-                <Grid container item xs={4}>
-                  <Box className={formGroup}>
-                    <Typography variant="body2">Mobile No.</Typography>
-                  </Box>
-                </Grid>
-                <Grid container item xs>
-                  <Box className={formGroup}>
-                    <TextField
-                      id="standard-basic"
-                      variant="outlined"
-                      value={form.mobile}
-                      name="mobile"
-                      onInput={validateInputLength}
-                      onChange={handleChange}
-                      autoComplete="off"
-                      // placeholder="Mobile"
-                      helperText={errorMessage.mobile}
-                      disabled={true}
-                      className="disabled"
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
-              <Grid container spacing={2}>
-                <Grid container item xs={4}>
-                  <Box className={formGroup}>
-                    <Typography variant="body2">Name</Typography>
-                  </Box>
-                </Grid>
-                <Grid container item xs>
-                  <Box className={formGroup}>
-                    <TextField
-                      id="standard-basic"
-                      variant="outlined"
-                      value={form.name}
-                      name="name"
-                      onInput={validateInputLength}
-                      onChange={handleChange}
-                      autoComplete="off"
-                      // placeholder="Name"
-                      helperText={errorMessage.name}
-                      disabled={true}
-                      className="disabled"
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
-              <Grid container spacing={2}>
-                <Grid container item xs={4}>
-                  <Box className={formGroup}>
-                    <Typography variant="body2">Date of Birth</Typography>
-                  </Box>
-                </Grid>
-                <Grid container item xs>
-                  <Box className={formGroup}>
-                    <TextField
-                      type="date"
-                      id="standard-basic"
-                      variant="outlined"
-                      value={form.dob}
-                      name="dob"
-                      onInput={validateInputLength}
-                      onChange={handleChange}
-                      autoComplete="off"
-                      // placeholder="Date of Birth"
-                      helperText={errorMessage.dob}
-                      style={{ width: "100%" }}
-                      disabled={true}
-                      className="disabled"
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
-              <Grid container spacing={2}>
-                <Grid container item xs={4}>
-                  <Box className={formGroup}>
-                    <Typography variant="body2">Gender</Typography>
-                  </Box>
-                </Grid>
-                <Grid container item xs>
-                  <Box className={formGroup}>
-                    <TextField
-                      id="standard-basic"
-                      variant="outlined"
-                      value={form.gender}
-                      name="gender"
-                      onInput={validateInputLength}
-                      onChange={handleChange}
-                      autoComplete="off"
-                      helperText={errorMessage.gender}
-                      disabled={true}
-                      className="disabled"
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
-              <Grid container spacing={2}>
-                <Grid container item xs={4}>
-                  <Box className={formGroup}>
-                    <Typography variant="body2">Address</Typography>
-                  </Box>
-                </Grid>
-                <Grid container item xs>
-                  <Box className={formGroup}>
-                    <TextField
-                      id="standard-basic"
-                      variant="outlined"
-                      value={form.address}
-                      name="address"
-                      onInput={validateInputLength}
-                      onChange={handleChange}
-                      autoComplete="off"
-                      // placeholder="Date of Birth"
-                      helperText={errorMessage.address}
-                      disabled={true}
-                      className="disabled"
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
+              <Box className={formGroup}>
+                <Typography variant="body2" className={question}>
+                  Email
+                </Typography>
+                <TextField
+                  id="standard-basic"
+                  variant="outlined"
+                  value={form.email}
+                  name="email"
+                  onInput={validateInputLength}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  helperText={errorMessage.email}
+                  // disabled={true}
+                  // className="disabled"
+                  fullWidth
+                />
+              </Box>
+
+              <Box className={formGroup}>
+                <Typography variant="body2" className={question}>
+                  Mobile
+                </Typography>
+                <TextField
+                  id="standard-basic"
+                  variant="outlined"
+                  value={form.mobile}
+                  name="mobile"
+                  onInput={validateInputLength}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  // placeholder="Mobile"
+                  helperText={errorMessage.mobile}
+                  disabled={true}
+                  className="disabled"
+                  fullWidth
+                />
+              </Box>
+
+              <Box className={formGroup}>
+                <Typography variant="body2" className={question}>
+                  Full Name
+                </Typography>
+                <TextField
+                  id="standard-basic"
+                  variant="outlined"
+                  value={form.name}
+                  name="name"
+                  onInput={validateInputLength}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  // placeholder="Name"
+                  helperText={errorMessage.name}
+                  disabled={true}
+                  className="disabled"
+                  fullWidth
+                />
+              </Box>
+
+              <Box className={formGroup}>
+                <Typography variant="body2" className={question}>
+                  Date of Birth
+                </Typography>
+                <TextField
+                  type="date"
+                  id="standard-basic"
+                  variant="outlined"
+                  value={form.dob}
+                  name="dob"
+                  onInput={validateInputLength}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  // placeholder="Date of Birth"
+                  helperText={errorMessage.dob}
+                  style={{ width: "100%" }}
+                  disabled={true}
+                  className="disabled"
+                  fullWidth
+                />
+              </Box>
+
+              <Box className={formGroup}>
+                <Typography variant="body2" className={question}>
+                  Gender
+                </Typography>
+                <TextField
+                  id="standard-basic"
+                  variant="outlined"
+                  value={form.gender}
+                  name="gender"
+                  onInput={validateInputLength}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  helperText={errorMessage.gender}
+                  disabled={true}
+                  className="disabled"
+                  fullWidth
+                />
+              </Box>
+              <Box className={formGroup}>
+                <Typography variant="body2" className={question}>
+                  Address
+                </Typography>
+                <TextField
+                  id="standard-basic"
+                  variant="outlined"
+                  value={form.address}
+                  name="address"
+                  onInput={validateInputLength}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  // placeholder="Date of Birth"
+                  helperText={errorMessage.address}
+                  disabled={true}
+                  className="disabled"
+                  fullWidth
+                />
+              </Box>
             </Box>
 
             <ErrorMessage errors={errors} modal={modal} />
@@ -570,8 +569,9 @@ function CustomerDetails({
               form={form}
               isDisabled={isFormSubmitted}
               isFormSubmitted={isFormSubmitted}
-              text={"Auto Renew"}
+              text={"Make Payment"}
               handleClick={handleClick}
+              marginTopClass={"marginTop10"}
             />
           </form>
         )}

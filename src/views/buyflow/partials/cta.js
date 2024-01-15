@@ -14,11 +14,12 @@ function CallToAction(props) {
     isDisabled = false,
     isFormSubmitted = false,
     text = "Submit",
-    variant = "contained"
+    variant = "contained",
+    marginTopClass=""
   } = props;
 
   return (
-    <Box className={buttonBox}>
+    <Box className={`${buttonBox} ${marginTopClass}`}>
       <Button
         type={buttonType}
         variant={variant}

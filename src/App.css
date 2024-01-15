@@ -220,3 +220,6 @@ body {
   pointer-events: none;
   /* background-color: #D8D8D8; */
 }
+.marginTop10 {
+  margin-top: 10% !important;
+}

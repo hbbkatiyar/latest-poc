@@ -65,7 +65,7 @@ export const useStyles = (theme) =>
       // textTransform: "capitalize",
     },
     container: {
-      margin: theme.spacing(1, 0, 1, 0),
+      margin: theme.spacing(1, 2, 1, 2),
     },
     cursorPointer: {
       cursor: "pointer",
@@ -174,7 +174,7 @@ export const useStyles = (theme) =>
       height: "100vh",
     },
     main: {
-      alignItems: "center",
+      // alignItems: "center",
       display: "flex",
       flexDirection: "column",
       justifyContent: "flex-start",
@@ -343,4 +343,10 @@ export const useStyles = (theme) =>
       padding: theme.spacing(1, 0, 1, 0),
       backgroundColor: "#ffd900",
     },
+    marginTop60: {
+      marginTop: "60%",
+    },
+    marginTop20: {
+      marginTop: "20%",
+    }
   });
