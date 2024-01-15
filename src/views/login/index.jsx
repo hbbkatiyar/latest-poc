@@ -8,6 +8,7 @@ import { useStyles } from "./indexStyles";
 import { getQueryStringParameterValue, getRoute, setStorageItem } from "../../helpers/utils";
 import { validations } from "../../messages/validation";
 import { Utils } from "../../constants/utils";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const Login = ({
   classes: {
@@ -20,12 +21,14 @@ const Login = ({
     button,
     formGroup,
     partnerName,
+    question,
+    passwordIcon,
   },
   classes,
 }) => {
   const history = useHistory();
   const partnerId = getQueryStringParameterValue("partnerId") ?? 1001;
-
+  const [inputType, setInputType] = useState('password');
   const [errorMessage, setErrorMessage] = useState({ empcode: "", password: "" });
   const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
@@ -126,6 +129,10 @@ const Login = ({
     navigateTo(getRoute("dashboard"));
   };
 
+  const toggleInput = () => {
+    setInputType(inputType === 'password' ? 'text' : 'password')
+  };
+
   return (
     <Box className={formInputCard}>
       <form
@@ -134,7 +141,7 @@ const Login = ({
         className={input}
         onSubmit={submitLogin}
       >
-        <Box m={3}>&nbsp;</Box>
+        <Box m={1}>&nbsp;</Box>
         
         <Box
           className={partnerName}
@@ -145,6 +152,7 @@ const Login = ({
         </Box>
 
         <Box className={formGroup}>
+          <Typography variant={"h6"} className={question}>Employee ID</Typography>
           <TextField
             id="standard-basic"
             variant="outlined"
@@ -155,14 +163,15 @@ const Login = ({
             onChange={handleChange}
             onFocus={toggleClass}
             autoComplete="off"
-            placeholder="Employee ID"
+            // placeholder="Employee ID"
             helperText={errorMessage.empcode}
           />
         </Box>
 
         <Box className={formGroup}>
+        <Typography variant={"h6"} className={question}>Password</Typography>
           <TextField
-            type="password"
+            type={inputType}
             id="standard-basic"
             variant="outlined"
             value={form.password}
@@ -172,9 +181,10 @@ const Login = ({
             onChange={handleChange}
             onFocus={toggleClass}
             autoComplete="off"
-            placeholder="Password"
+            // placeholder="Password"
             helperText={errorMessage.password}
           />
+          {form.password && <Box className={passwordIcon}><VisibilityIcon onClick={toggleInput} /></Box>}
         </Box>
 
         {errors.length > 0 && (
@@ -205,6 +215,7 @@ const Login = ({
             variant={"contained"}
             color="primary"
             className={button}
+          fullWidth
             {...((isFormSubmitted || !form.empcode || !form.password || errorMessage.empcode || errorMessage.password) && {
               disabled: true,
             })}

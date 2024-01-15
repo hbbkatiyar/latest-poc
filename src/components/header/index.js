@@ -117,7 +117,7 @@ function SubHeader({
         className={`${headerBox} ${bgColorDark}`}
       >
         <Box className={headerText}>
-          <Grid container spacing={3}>
+          <Grid container>
             <Grid item xs="4" style={{ textAlign: "left" }}>
               <Box>
                 <img src={Images.BOMLogo} className={bomLogo} />

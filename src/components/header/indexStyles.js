@@ -90,6 +90,7 @@ export const useStyles = (theme) =>
       height: "25px",
     },
     bomLogo: {
-      height: "25px"
+      height: "44px",
+      marginTop: "-10px"
     }
   });

@@ -88,21 +88,24 @@ export const useStyles = (theme) =>
     },
     customBtn: {
       display: "flex",
+      bottom: 0,
       // flexDirection: "reverse-row",
       [theme.breakpoints.down("sm")]: {
         justifyContent: "center",
-        padding: theme.spacing(1, 0 , 1, 0),
+        padding: theme.spacing(1, 0, 1, 0),
       },
       [theme.breakpoints.up("sm")]: {
         justifyContent: "center",
-        padding: theme.spacing(1, 0 , 1, 0),
+        padding: theme.spacing(1, 0, 1, 0),
       },
       [theme.breakpoints.up("md")]: {
         // position: 'relative',
         height: "100%",
         justifyContent: "center",
-        padding: theme.spacing(1, 0 , 1, 0),
+        padding: theme.spacing(1, 0, 1, 0),
       },
+      position: "relative",
+      marginTop: "60%",
     },
     button: {
       borderRadius: "8px",
@@ -202,7 +205,7 @@ export const useStyles = (theme) =>
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: theme.palette.common.white,
-      // minHeight: '100%'
+      // minHeight: "300px",
     },
     numberInputBox: {
       display: "flex",
@@ -266,15 +269,15 @@ export const useStyles = (theme) =>
       flexDirection: "column",
       alignItems: "start",
       [theme.breakpoints.down("sm")]: {
-        padding: theme.spacing(1, 0 , 1, 0),
+        padding: theme.spacing(1, 0, 1, 0),
         width: "auto",
       },
       [theme.breakpoints.up("sm")]: {
-        padding: theme.spacing(1, 0 , 1, 0),
+        padding: theme.spacing(1, 0, 1, 0),
         width: "auto",
       },
       [theme.breakpoints.up("md")]: {
-        padding: theme.spacing(1, 0 , 1, 0),
+        padding: theme.spacing(1, 0, 1, 0),
         width: "100%",
       },
     },
@@ -282,9 +285,26 @@ export const useStyles = (theme) =>
       display: "flex",
       margin: theme.spacing(1, 0, 1, 0),
       padding: theme.spacing(1, 0, 1, 0),
-      backgroundColor: "#ffd900"
+      backgroundColor: "#ffd900",
     },
     errorMsg: {
-      color: "#ff585d"
+      color: "#ff585d",
+    },
+    question: {
+      margin: theme.spacing(1, 0, 1, 0),
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "18px",
+      },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "18px",
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: "18px",
+      },
+    },
+    passwordIcon: {
+      textAlign: "right",
+      width: "100%",
+      margin: theme.spacing(1, 0, 0, 0)
     }
   });
