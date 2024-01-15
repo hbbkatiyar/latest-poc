@@ -6,7 +6,7 @@ import ApplicationContext from "../../context/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useStyles } from "./indexFormStyles";
 import { Box, Button, Typography } from "@material-ui/core";
-import { getRoute } from "../../helpers/utils";
+import { getRoute, redirectWithBlank } from "../../helpers/utils";
 import { useHistory } from "react-router";
 import { Images } from "../../constants/images";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
@@ -40,6 +40,7 @@ function BuyflowApplicationSubmitted({
 
   const handleDownloadClick = () => {
     console.log("handle dowload click");
+    redirectWithBlank("/data/certificate.pdf");
   };
 
   return isLoaded ? (
@@ -50,7 +51,7 @@ function BuyflowApplicationSubmitted({
           <CheckCircleOutlineIcon className={autoPayIcon} />
         </Box>
 
-        <form noValidate autoComplete="off" onSubmit={onSubmit}>
+        {/* <form noValidate autoComplete="off" onSubmit={onSubmit}> */}
           <Box textAlign={"left"}>
             <Typography variant="body2">
               We appreciate your interest in joining our family.
@@ -84,7 +85,7 @@ function BuyflowApplicationSubmitted({
             text={"Close"}
             handleClick={handleClick}
           />
-        </form>
+        {/* </form> */}
       </Box>
     </Box>
   ) : (

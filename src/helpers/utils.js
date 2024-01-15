@@ -88,9 +88,7 @@ export const navigateToUrl = (url, history) => {
 
 export const redirectWithBlank = (url) => {
   var a = document.createElement("a");
-  if (!detectMob()) {
-    a.target = "_blank";
-  }
+  a.target = "_blank";
   a.href = url;
   a.click();
 };
