@@ -10,10 +10,19 @@ import { getRoute, redirectWithBlank } from "../../helpers/utils";
 import { useHistory } from "react-router";
 import { Images } from "../../constants/images";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 
 function BuyflowApplicationSubmitted({
-  classes: { policyIssuance, container, main, loaderBox, buyButton, button, formGroup, autoPayIcon },
+  classes: {
+    policyIssuance,
+    container,
+    main,
+    loaderBox,
+    buyButton,
+    button,
+    formGroup,
+    autoPayIcon,
+  },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
@@ -51,41 +60,37 @@ function BuyflowApplicationSubmitted({
           <CheckCircleOutlineIcon className={autoPayIcon} />
         </Box>
 
-        {/* <form noValidate autoComplete="off" onSubmit={onSubmit}> */}
-          <Box textAlign={"left"}>
-            <Typography variant="body2">
-              We appreciate your interest in joining our family.
-            </Typography>
-          </Box>
-          <Box mt={3} justifyContent={"center"}>
-            <Button
-              type={"click"}
-              variant={"contained"}
-              className={`${buyButton} ${button}`}
-              color={"secondary"}
-              size={"large"}
-              onClick={handleDownloadClick}
-            >
-              <CloudDownloadIcon />&nbsp;
-              Download Policy
-            </Button>
-            {/* <Box className={policyIssuance}>
-              <Typography>Policy Issuance</Typography>
-            </Box> */}
-          </Box>
-          
-          <ErrorMessage errors={errors} modal={modal} />
+        <Box mt={3} textAlign={"left"}>
+          <Typography variant="body2">
+            We appreciate your interest in joining our family.
+          </Typography>
+        </Box>
+        <Box mt={3} justifyContent={"center"}>
+          <Button
+            type={"click"}
+            variant={"contained"}
+            className={`${buyButton} ${button}`}
+            color={"secondary"}
+            size={"large"}
+            onClick={handleDownloadClick}
+          >
+            <CloudDownloadIcon />
+            &nbsp; Download Policy
+          </Button>
+        </Box>
 
-          <CallToAction
-            buttonType={"submit"}
-            errorMessage={errorMessage}
-            form={form}
-            isDisabled={isFormSubmitted}
-            isFormSubmitted={isFormSubmitted}
-            text={"Close"}
-            handleClick={handleClick}
-          />
-        {/* </form> */}
+        <ErrorMessage errors={errors} modal={modal} />
+
+        <CallToAction
+          buttonType={"submit"}
+          errorMessage={errorMessage}
+          form={form}
+          isDisabled={isFormSubmitted}
+          isFormSubmitted={isFormSubmitted}
+          text={"Close"}
+          handleClick={handleClick}
+          // marginTopClass={"marginTop10"}
+        />
       </Box>
     </Box>
   ) : (
