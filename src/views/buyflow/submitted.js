@@ -5,14 +5,15 @@ import ErrorMessage from "./partials/error";
 import ApplicationContext from "../../context/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useStyles } from "./indexFormStyles";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import { getRoute } from "../../helpers/utils";
 import { useHistory } from "react-router";
 import { Images } from "../../constants/images";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 function BuyflowApplicationSubmitted({
-  classes: { policyIssuance, container, main, loaderBox },
+  classes: { policyIssuance, container, main, loaderBox, buyButton, button, formGroup, autoPayIcon },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
@@ -37,25 +38,41 @@ function BuyflowApplicationSubmitted({
     navigateTo(getRoute("liveliness"));
   };
 
+  const handleDownloadClick = () => {
+    console.log("handle dowload click");
+  };
+
   return isLoaded ? (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
-      <Box m={3}>
+        <Box m={3}>
           <Typography variant="h5">Application Submitted</Typography>
+          <CheckCircleOutlineIcon className={autoPayIcon} />
         </Box>
 
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
-          <Box m={3} textAlign={"left"}>
-            <Typography variant="body2">We appreciate your interest in joining our family.</Typography>
+          <Box textAlign={"left"}>
+            <Typography variant="body2">
+              We appreciate your interest in joining our family.
+            </Typography>
           </Box>
-          <br /><br />
-          <Box m={3} display="flex" justifyContent="center">
-            <Box className={policyIssuance}>
+          <Box mt={3} justifyContent={"center"}>
+            <Button
+              type={"click"}
+              variant={"contained"}
+              className={`${buyButton} ${button}`}
+              color={"secondary"}
+              size={"large"}
+              onClick={handleDownloadClick}
+            >
+              <CloudDownloadIcon />&nbsp;
+              Download Policy
+            </Button>
+            {/* <Box className={policyIssuance}>
               <Typography>Policy Issuance</Typography>
-            </Box>
+            </Box> */}
           </Box>
-          <br />
-          <br />
+          
           <ErrorMessage errors={errors} modal={modal} />
 
           <CallToAction
@@ -77,4 +94,6 @@ function BuyflowApplicationSubmitted({
   );
 }
 
-export default withStyles(useStyles, { withTheme: true })(BuyflowApplicationSubmitted);
+export default withStyles(useStyles, { withTheme: true })(
+  BuyflowApplicationSubmitted
+);

@@ -51,6 +51,7 @@ function CustomerDetails({
     buttonText,
     loaderStyle,
     marginTop20,
+    customBtn,
   },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
@@ -358,7 +359,41 @@ function CustomerDetails({
         </Box>
 
         {!form.generateOtp && !form.verifyOtp && (
-          <Box m={2} direction="column" style={{ width: "100%" }}>
+          <>
+            <Box className={formGroup}>
+              <Typography variant="body2" className={question}>
+                Aadhaar Number
+              </Typography>
+              <TextField
+                id="standard-basic"
+                variant="outlined"
+                value={form.aadhaar_number}
+                name="aadhaar_number"
+                onInput={validateInputLength}
+                onChange={handleChange}
+                autoComplete="off"
+                helperText={errorMessage.aadhaar_number}
+                fullWidth
+              />
+            </Box>
+            <Box className={customBtn}>
+              <Typography variant="body2" className={question}></Typography>
+              <Button
+                type={"click"}
+                variant={"contained"}
+                className={`${buyButton} ${button}`}
+                color={"primary"}
+                size={"large"}
+                onClick={handleGenerateOtp}
+                {...((isFormSubmitted ||
+                  !form.aadhaar_number ||
+                  errorMessage.aadhaar_number) && { disabled: true })}
+              >
+                OTP
+              </Button>
+            </Box>
+          </>
+          /* <Box m={2} direction="column" style={{ width: "100%" }}>
             <Grid container spacing={2}>
               <Grid container item xs>
                 <Box className={formGroup}>
@@ -393,14 +428,55 @@ function CustomerDetails({
                 </Box>
               </Grid>
             </Grid>
-          </Box>
+          </Box> */
         )}
 
         {form.generateOtp && !form.verifyOtp && (
+          <>
+            <Box className={formGroup}>
+              <Typography variant="body2" className={question}>
+                OTP
+              </Typography>
+              <TextField
+                id="standard-basic"
+                variant="outlined"
+                value={form.otp}
+                name="otp"
+                onInput={validateInputLength}
+                onChange={handleChange}
+                autoComplete="off"
+                // placeholder="OTP"
+                helperText={errorMessage.otp}
+                fullWidth
+              />
+            </Box>
+            <Box className={customBtn}>
+              <Button
+                type={"click"}
+                variant={"contained"}
+                className={`${buyButton} ${button}`}
+                color={"primary"}
+                size={"large"}
+                onClick={handleVerifyOtp}
+                {...((isFormSubmitted ||
+                  !form.otp ||
+                  errorMessage.otp ||
+                  form.otp.length !== 6) && {
+                  disabled: true,
+                })}
+              >
+                Verify
+              </Button>
+            </Box>
+          </>
+          /*
           <Box m={2} direction="column" style={{ width: "100%" }}>
             <Grid container spacing={2}>
               <Grid container item xs>
                 <Box className={formGroup}>
+                  <Typography variant="body2" className={question}>
+                    OTP
+                  </Typography>
                   <TextField
                     id="standard-basic"
                     variant="outlined"
@@ -435,7 +511,7 @@ function CustomerDetails({
                 </Box>
               </Grid>
             </Grid>
-          </Box>
+          </Box> */
         )}
 
         {form.verifyOtp && (

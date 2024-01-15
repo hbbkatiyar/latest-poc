@@ -300,6 +300,8 @@ export const useStyles = (theme) =>
         justifyContent: "center",
         padding: theme.spacing(2, 0, 2, 0),
       },
+      position: "relative",
+      marginTop: "60%",
     },
     autoPay: {
       backgroundColor: "#05B050",

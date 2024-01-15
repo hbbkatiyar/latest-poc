@@ -13,7 +13,7 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { getStorageItem, setStorageItem } from "../../helpers/utils";
 
 function BuyflowPayment({
-  classes: { autoPay, autoPayIcon, container, main, loaderBox, formGroup },
+  classes: { autoPay, autoPayIcon, container, main, loaderBox, formGroup, question },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
@@ -51,7 +51,7 @@ function BuyflowPayment({
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box m={3}>
-          <Typography variant="h5">Payment Section</Typography>
+          <Typography variant="h5" className={question}>Payment Section</Typography>
         </Box>
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
           <Box m={3} justifyContent="center">
@@ -87,6 +87,7 @@ function BuyflowPayment({
             isFormSubmitted={isFormSubmitted}
             text={"Next"}
             handleClick={handleClick}
+            marginTopClass={"marginTop10"}
           />
         </form>
       </Box>

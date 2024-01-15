@@ -20,7 +20,12 @@ import {
   MenuItem,
   InputLabel,
 } from "@material-ui/core";
-import { getRoute, getStorageItem, parseMessage, setStorageItem } from "../../helpers/utils";
+import {
+  getRoute,
+  getStorageItem,
+  parseMessage,
+  setStorageItem,
+} from "../../helpers/utils";
 // import { ReducerUtils } from "../../constants/reducers";
 import { useHistory } from "react-router";
 import { Utils } from "../../constants/utils";
@@ -35,7 +40,7 @@ import { FORM_FIELD_MOBILE } from "../../constants/field";
 import { FORMAT_DD_MM_YYYY } from "../../constants/index";
 
 function NomineeDetails({
-  classes: { container, main, formGroup, loaderBox },
+  classes: { container, main, formGroup, loaderBox, question },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
@@ -46,9 +51,15 @@ function NomineeDetails({
   });
   const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
-    nominee_name: getStorageItem("nominee_name")  ? getStorageItem("nominee_name")  : "",
-    nominee_dob: getStorageItem("nominee_dob")  ? getStorageItem("nominee_dob")  : "",
-    nominee_relationship: getStorageItem("nominee_relationship")  ? getStorageItem("nominee_relationship")  : "",
+    nominee_name: getStorageItem("nominee_name")
+      ? getStorageItem("nominee_name")
+      : "",
+    nominee_dob: getStorageItem("nominee_dob")
+      ? getStorageItem("nominee_dob")
+      : "",
+    nominee_relationship: getStorageItem("nominee_relationship")
+      ? getStorageItem("nominee_relationship")
+      : "",
     partnerId: getStorageItem("partnerId"),
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -76,7 +87,7 @@ function NomineeDetails({
     if (form[fieldName]) {
       setTouchFieldsState(fieldName, true);
       setErrorMessageState(fieldName, "");
-      
+
       /*
       const minDate = getMinDobDate();
       const maxDate = getMaxDobDate();
@@ -194,101 +205,80 @@ function NomineeDetails({
 
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
           <Box direction="column" style={{ width: "100%" }}>
-            <Grid container spacing={2}>
-              <Grid container item xs={4}>
-                <Box className={formGroup}>
-                  <Typography variant="body2">Name</Typography>
-                </Box>
-              </Grid>
-              <Grid container item xs>
-                <Box className={formGroup}>
-                  <TextField
-                    id="standard-basic"
-                    variant="outlined"
-                    value={form.nominee_name}
-                    name="nominee_name"
-                    onInput={validateInputLength}
-                    onChange={handleChange}
-                    autoComplete="off"
-                    // placeholder="Name"
-                    helperText={errorMessage.nominee_name}
-                  />
-                </Box>
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid container item xs={4}>
-                <Box className={formGroup}>
-                  <Typography variant="body2">Relationship</Typography>
-                </Box>
-              </Grid>
-              <Grid container item xs>
-                <FormControl variant="outlined" style={{ width: "76%", textAlign: "left" }}>
-                  <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value={form.nominee_relationship}
-                    onChange={handleChange}
-                    label="Age"
-                    name="nominee_relationship"
-                  >
-                    <MenuItem value="">
-                      <em>Select</em>
-                    </MenuItem>
-                    <MenuItem value={"mother"}>Mother</MenuItem>
-                    <MenuItem value={"father"}>Father</MenuItem>
-                    <MenuItem value={"son"}>Son</MenuItem>
-                    <MenuItem value={"daughter"}>Daughter</MenuItem>
-                    <MenuItem value={"wife"}>Wife</MenuItem>
-                    <MenuItem value={"husband"}>Husband</MenuItem>
-                    <MenuItem value={"brother"}>Brother</MenuItem>
-                    <MenuItem value={"sister"}>Sister</MenuItem>
-                    <MenuItem value={"grandparent"}>Grand Parent</MenuItem>
-                    <MenuItem value={"granddaughter"}>Grand Daughter</MenuItem>
-                    <MenuItem value={"grandson"}>Grand Son</MenuItem>
-                    <MenuItem value={"other"}>Other</MenuItem>
-                  </Select>
-                  {errorMessage.nominee_relationship && <Box className="error-message">
+            <Box className={formGroup}>
+              <Typography variant="body2" className={question}>
+                Name
+              </Typography>
+              <TextField
+                id="standard-basic"
+                variant="outlined"
+                value={form.nominee_name}
+                name="nominee_name"
+                onInput={validateInputLength}
+                onChange={handleChange}
+                autoComplete="off"
+                helperText={errorMessage.nominee_name}
+                fullWidth
+              />
+            </Box>
+            <Box className={formGroup}>
+              <Typography variant="body2" className={question}>
+                Relationship
+              </Typography>
+              <FormControl
+                variant="outlined"
+                style={{ width: "100%", textAlign: "left" }}
+                fullWidth
+              >
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={form.nominee_relationship}
+                  onChange={handleChange}
+                  label="Age"
+                  name="nominee_relationship"
+                >
+                  <MenuItem value="">
+                    <em>Select</em>
+                  </MenuItem>
+                  <MenuItem value={"mother"}>Mother</MenuItem>
+                  <MenuItem value={"father"}>Father</MenuItem>
+                  <MenuItem value={"son"}>Son</MenuItem>
+                  <MenuItem value={"daughter"}>Daughter</MenuItem>
+                  <MenuItem value={"wife"}>Wife</MenuItem>
+                  <MenuItem value={"husband"}>Husband</MenuItem>
+                  <MenuItem value={"brother"}>Brother</MenuItem>
+                  <MenuItem value={"sister"}>Sister</MenuItem>
+                  <MenuItem value={"grandparent"}>Grand Parent</MenuItem>
+                  <MenuItem value={"granddaughter"}>Grand Daughter</MenuItem>
+                  <MenuItem value={"grandson"}>Grand Son</MenuItem>
+                  <MenuItem value={"other"}>Other</MenuItem>
+                </Select>
+                {errorMessage.nominee_relationship && (
+                  <Box className="error-message">
                     {"Please select relationship"}
-                  </Box>}
-                </FormControl>
-                {/* <Box className={formGroup}>
-                    <TextField
-                      id="standard-basic"
-                      variant="outlined"
-                      value={form.nominee_relationship}
-                      name="nominee_relationship"
-                      onInput={validateInputLength}
-                      onChange={handleChange}
-                      autoComplete="off"
-                      helperText={errorMessage.nominee_relationship}
-                    />
-                  </Box> */}
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid container item xs={4}>
-                <Box className={formGroup}>
-                  <Typography variant="body2">Date of Birth</Typography>
-                </Box>
-              </Grid>
-              <Grid container item xs>
-                <Box className={formGroup}>
-                  <TextField
-                    type="date"
-                    id="standard-basic"
-                    variant="outlined"
-                    value={form.nominee_dob}
-                    name="nominee_dob"
-                    onInput={validateInputLength}
-                    onChange={handleChange}
-                    autoComplete="off"
-                    // placeholder="Date of Birth"
-                    helperText={errorMessage.nominee_dob}
-                  />
-                </Box>
-              </Grid>
-            </Grid>
+                  </Box>
+                )}
+              </FormControl>
+            </Box>
+            
+            <Box className={formGroup}>
+              <Typography variant="body2" className={question}>
+                Date of Birth
+              </Typography>
+              <TextField
+                type="date"
+                id="standard-basic"
+                variant="outlined"
+                value={form.nominee_dob}
+                name="nominee_dob"
+                onInput={validateInputLength}
+                onChange={handleChange}
+                autoComplete="off"
+                helperText={errorMessage.nominee_dob}
+                fullWidth
+              />
+            </Box>
           </Box>
 
           <ErrorMessage errors={errors} modal={modal} />
@@ -297,7 +287,12 @@ function NomineeDetails({
             buttonType={"submit"}
             errorMessage={errorMessage}
             form={form}
-            isDisabled={isFormSubmitted || !form.nominee_name || !form.nominee_dob || !form.nominee_relationship}
+            isDisabled={
+              isFormSubmitted ||
+              !form.nominee_name ||
+              !form.nominee_dob ||
+              !form.nominee_relationship
+            }
             isFormSubmitted={isFormSubmitted}
             text={"Submit"}
             handleClick={handleClick}

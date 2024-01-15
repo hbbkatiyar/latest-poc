@@ -12,7 +12,7 @@ import { Images } from "../../constants/images";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 function BuyflowHealthDeclation({
-  classes: { autoPay, autoPayIcon, container, main, loaderBox },
+  classes: { autoPay, autoPayIcon, container, main, loaderBox, question },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
@@ -60,6 +60,7 @@ function BuyflowHealthDeclation({
             isFormSubmitted={isFormSubmitted}
             text={"Accept"}
             handleClick={handleClick}
+            marginTopClass={"marginTop10"}
           />
         </form>
       </Box>
