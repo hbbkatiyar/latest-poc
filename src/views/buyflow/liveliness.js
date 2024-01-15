@@ -96,8 +96,6 @@ function CustomerLivelinessCheck({
             </Box>
           )}
 
-          <br />
-          <br />
           <CallToAction
             buttonType={"submit"}
             errorMessage={errorMessage}
@@ -106,6 +104,7 @@ function CustomerLivelinessCheck({
             isFormSubmitted={isFormSubmitted}
             text={"Dashboard"}
             handleClick={handleClick}
+            marginTopClass={"marginTop10"}
           />
         </form>
       </Box>
