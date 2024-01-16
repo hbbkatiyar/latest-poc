@@ -21,7 +21,7 @@ export const routes = {
   liveliness: "/buyflow/liveliness-check",
   knowledgeHub: "/drawer/knowledge-hub",
   proposals: "/drawer/proposals-status",
-  policies: "/drawer/policies",
+  policies: "/drawer/policies-coi",
 };
 
 export const sectionTitle = {

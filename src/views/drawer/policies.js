@@ -9,7 +9,7 @@ function Policies({ classes: { container, main, section } }) {
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box mt={3}>
-          <Typography variant="h5">Policies</Typography>
+          <Typography variant="h5">Policies COI</Typography>
         </Box>
         <Box m={1}>&nbsp;</Box>
         <PolicyTable />
