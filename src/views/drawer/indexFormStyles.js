@@ -176,6 +176,14 @@ export const useStyles = (theme) =>
       display: "flex",
       flexDirection: "column",
       justifyContent: "flex-start",
+      padding: theme.spacing(4, 1, 0, 1),
+      textAlign: "center",
+    },
+    mainKnowledgeHub: {
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-start",
       padding: theme.spacing(4, 2, 0, 2),
       textAlign: "center",
     },
@@ -243,12 +251,15 @@ export const useStyles = (theme) =>
       },
     },
     question: {
+      margin: theme.spacing(1, 0, 1, 0),
       [theme.breakpoints.down("sm")]: {
-        fontSize: "14px",
+        fontSize: "18px",
       },
-      [theme.breakpoints.up("sm")]: {},
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "18px",
+      },
       [theme.breakpoints.up("md")]: {
-        fontSize: "20px",
+        fontSize: "18px",
       },
     },
     smallText: {
@@ -283,5 +294,41 @@ export const useStyles = (theme) =>
       borderRadius: "5px",
       minHeight: "10vh",
       paddingTop: "6vh"
-    }
+    },
+    buyButton: {
+      borderRadius: "1vh",
+      // textTransform: "capitalize",
+    },
+    button: {
+      width: "100%",
+      [theme.breakpoints.down("sm")]: {
+        padding: "14px 16px",
+      },
+      [theme.breakpoints.up("sm")]: {
+        padding: "14px 34px",
+      },
+      [theme.breakpoints.up("md")]: {
+        padding: "14px 34px",
+      },
+    },
+    customBtn: {
+      display: "flex",
+      // flexDirection: "reverse-row",
+      [theme.breakpoints.down("sm")]: {
+        justifyContent: "center",
+        padding: theme.spacing(2, 0, 2, 0),
+      },
+      [theme.breakpoints.up("sm")]: {
+        justifyContent: "center",
+        padding: theme.spacing(2, 0, 2, 0),
+      },
+      [theme.breakpoints.up("md")]: {
+        // position: 'relative',
+        height: "100%",
+        justifyContent: "center",
+        padding: theme.spacing(2, 0, 2, 0),
+      },
+      position: "relative",
+      marginTop: "30%",
+    },
   });

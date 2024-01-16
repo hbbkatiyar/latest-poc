@@ -15,8 +15,8 @@ import BuyflowHealthDeclaration from "./views/buyflow/declaration";
 import BuyflowApplicationSubmitted from "./views/buyflow/submitted";
 import CustomerLivelinessCheck from "./views/buyflow/liveliness";
 import KnowledgeHub from "./views/drawer/knowledgeHub";
-import LoginStatus from "./views/drawer/loginStatus";
-import PolicyCoi from "./views/drawer/policyCoi";
+import Proposals from "./views/drawer/proposals";
+import Policies from "./views/drawer/policies";
 
 const RouteWithLayout = ({ component: Component, layout: Layout, ...rest }) => (
   <Route
@@ -92,16 +92,16 @@ function Routes() {
             component={KnowledgeHub}
           />
           <RouteWithLayout
-            path={getRoute("loginStatus")}
+            path={getRoute("proposals")}
             exact
             layout={MainLayout}
-            component={LoginStatus}
+            component={Proposals}
           />
           <RouteWithLayout
-            path={getRoute("policyCoi")}
+            path={getRoute("policies")}
             exact
             layout={MainLayout}
-            component={PolicyCoi}
+            component={Policies}
           />
 
           {/* <RouteWithLayout

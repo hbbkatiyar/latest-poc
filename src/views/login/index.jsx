@@ -243,18 +243,18 @@ const Login = ({
             })}
           >
             <Box className={buttonText}>
-          <Typography variant={"body1"} className={mainCta}>
-            {!isFormSubmitted ? (
-              renderHTML("Login")
-            ) : (
-              <CircularProgress
-                color={"inherit"}
-                className={classes.loaderStyle}
-                size={20}
-              />
+              <Typography variant={"body1"} className={mainCta}>
+                {!isFormSubmitted ? (
+                  renderHTML("Login")
+                ) : (
+                  <CircularProgress
+                    color={"inherit"}
+                    className={classes.loaderStyle}
+                    size={20}
+                  />
                 )}
-                </Typography>
-        </Box>
+              </Typography>
+            </Box>
           </Button>
         </Box>
       </form>

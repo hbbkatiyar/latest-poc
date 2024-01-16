@@ -20,8 +20,8 @@ export const routes = {
   submitted: "/buyflow/application-submitted",
   liveliness: "/buyflow/liveliness-check",
   knowledgeHub: "/drawer/knowledge-hub",
-  loginStatus: "/drawer/login-status",
-  policyCoi: "/drawer/policy-coi",
+  proposals: "/drawer/proposals-status",
+  policies: "/drawer/policies",
 };
 
 export const sectionTitle = {

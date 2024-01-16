@@ -5,6 +5,7 @@ import PolicyIcon from "@material-ui/icons/Policy";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import AssignmentReturnIcon from "@material-ui/icons/AssignmentReturn";
+import AutorenewIcon from '@material-ui/icons/Autorenew';
 import HomeIcon from '@material-ui/icons/Home';
 import {
   Box,
@@ -86,10 +87,10 @@ function SubHeader({
     >
       <List>
         {[
-          { text: "Dashboard", slug: "dashboard" },
+          { text: "Products", slug: "dashboard" },
           { text: "Knowledge Hub", slug: "knowledgeHub" },
-          { text: "Login Status", slug: "loginStatus" },
-          { text: "Policy COI", slug: "policyCoi" },
+          { text: "Proposals", slug: "proposals" },
+          { text: "Policies", slug: "policies" },
           { text: "Logout", slug: "logout" },
         ].map((item, index) => (
           <ListItem
@@ -98,11 +99,11 @@ function SubHeader({
             onClick={(event) => clickHandler(event, item, index)}
           >
             <ListItemIcon>
-              {index === 0 && <HomeIcon />}
-              {index === 1 && <LibraryBooksIcon />}
-              {index === 2 && <AssignmentReturnIcon />}
-              {index === 3 && <PolicyIcon />}
-              {index === 4 && <ExitToAppIcon />}
+              {index === 0 && <HomeIcon style={{ color: '#ffd900' }} />}
+              {index === 1 && <LibraryBooksIcon style={{ color: '#014FB6' }} />}
+              {index === 2 && <AutorenewIcon style={{ color: 'orange' }} />}
+              {index === 3 && <PolicyIcon style={{ color: '#05B050' }} />}
+              {index === 4 && <ExitToAppIcon style={{ color: '#C00001' }} />}
             </ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItem>
