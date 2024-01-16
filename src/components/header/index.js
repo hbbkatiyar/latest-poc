@@ -89,8 +89,8 @@ function SubHeader({
         {[
           { text: "Products", slug: "dashboard" },
           { text: "Knowledge Hub", slug: "knowledgeHub" },
-          { text: "Proposals", slug: "proposals" },
-          { text: "Policies", slug: "policies" },
+          { text: "Proposals Status", slug: "proposals" },
+          { text: "Policies COI", slug: "policies" },
           { text: "Logout", slug: "logout" },
         ].map((item, index) => (
           <ListItem
@@ -119,15 +119,10 @@ function SubHeader({
       >
         <Box className={headerText}>
           <Grid container>
-            <Grid item xs="4" style={{ textAlign: "left" }}>
+            <Grid item xs="3" style={{ textAlign: "left" }}>
               <Box>
                 <img src={Images.BOMLogo} className={bomLogo} />
               </Box>
-              {/* <Box
-                className={partnerLogo}
-              >
-                Partner <br /> Logo
-              </Box> */}
             </Grid>
             {getStorageItem("token") ? (
               <Grid item xs="6">
@@ -139,8 +134,8 @@ function SubHeader({
               <Grid item xs="4"></Grid>
             )}
             {getStorageItem("token") ? (
-              <Grid item xs="2">
-                <Box onClick={toggleDrawer("right", true)}>
+              <Grid item xs="3">
+                <Box onClick={toggleDrawer("right", true)} style={{marginLeft: "35px"}}>
                   <MenuIcon />
                 </Box>
                 <Drawer
@@ -153,7 +148,7 @@ function SubHeader({
               </Grid>
             ) : (
               <Grid item xs="4">
-                <Box>
+                <Box style={{ marginLeft: "25px"}}>
                   <img src={Images.AvivaLogo} className={logo} />
                 </Box>
               </Grid>

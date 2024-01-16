@@ -45,7 +45,7 @@ function BuyflowHealthDeclation({
         </Box>
 
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
-          <Box m={3} textAlign={"left"} style={{color: "#4F6F97"}}>
+          <Box textAlign={"left"} style={{color: "#4F6F97"}}>
             <Typography variant="body2">
               <small>"I hereby declare that:<br/> I have neversuffered from or undergoing any treatment for any cardiovascular, renal, musculoskeletal, neurological, nervous, nephrological, Skeletal, respiratory, digestive, uninary, endocrine, lymphatic disorder and my family, inlcuding me, do not have any adverse medical history. During last three monthsI have never tested COVID positive. None of my parent/s or my sibling/s having died before the age 50 due to any adverse chronic ailment. I do not have any habit of smoking or consumption of alcohol and been advised to quit or under treatment for related diagnosis, nor overweight or underweight as per WHO standards."</small>
             </Typography>
