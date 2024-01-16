@@ -49,7 +49,7 @@ function BuyflowApplicationSubmitted({
 
   const handleDownloadClick = () => {
     console.log("handle dowload click");
-    redirectWithBlank("/data/certificate.pdf");
+    redirectWithBlank("/AGTL_GT100142_SM2212230000000001_1.pdf");
   };
 
   return isLoaded ? (

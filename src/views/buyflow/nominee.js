@@ -296,6 +296,7 @@ function NomineeDetails({
             isFormSubmitted={isFormSubmitted}
             text={"Submit"}
             handleClick={handleClick}
+            marginTopClass={"marginTop30"}
           />
         </form>
       </Box>
