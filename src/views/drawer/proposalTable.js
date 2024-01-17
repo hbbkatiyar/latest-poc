@@ -7,6 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { Box, Typography } from "@material-ui/core";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -26,14 +27,14 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(proposal, name,  status) {
+function createData(proposal, name, status) {
   return { proposal, name, status };
 }
 
 const rows = [
   createData("PR0001", "Ansh Katiyar", "Payment"),
   createData("PR0002", "Palak Gupta", "Payment"),
-  createData("PR0003", "Arti Singh", "e-KYC"),
+  createData("PR0003", "-", "e-KYC"),
   createData("PR0004", "Man Singla", "Nominee"),
   createData("PR0005", "Amit Kumar", "Nominee"),
 ];
@@ -44,7 +45,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables() {
+export default function CustomizedTables({ clickHandler }) {
   const classes = useStyles();
 
   return (
@@ -64,7 +65,18 @@ export default function CustomizedTables() {
                 {row.proposal}
               </StyledTableCell>
               <StyledTableCell>{row.name}</StyledTableCell>
-              <StyledTableCell>{row.status}</StyledTableCell>
+              
+                <StyledTableCell>
+                  <Box onClick={() => clickHandler(row.status)}>
+                    <Typography variant="body2" style={{ fontSize: "14px", color: "#014FB6", cursor: "pointer" }}>
+                      {row.status}
+                    </Typography>
+                  </Box>
+                </StyledTableCell>
+              
+              {/* {row.status !== "e-KYC" && (
+                <StyledTableCell>{row.status}</StyledTableCell>
+              )} */}
             </StyledTableRow>
           ))}
         </TableBody>
