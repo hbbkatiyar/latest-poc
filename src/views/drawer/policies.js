@@ -8,10 +8,10 @@ function Policies({ classes: { container, main, section } }) {
   return (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
-        <Box mt={3}>
+        <Box mt={1}>
           <Typography variant="h5">Policy COI</Typography>
         </Box>
-        <Box m={1}>&nbsp;</Box>
+        {/* <Box m={1}>&nbsp;</Box> */}
         <PolicyTable />
       </Box>
     </Box>
