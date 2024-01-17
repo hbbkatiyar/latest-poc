@@ -140,6 +140,7 @@ function ProductSelection({
             <Typography variant="body2" className={question}>
               Sum Assured
             </Typography>
+            <Box display="flex" justifyContent="center" textAlign="center" style={{width: '100%'}}>
             <ChipSelect
               compact={false}
               fontWeight={"regular"}
@@ -151,6 +152,7 @@ function ProductSelection({
               ]}
               selectedItem={form?.sumAssured}
             />
+            </Box>
           </Box>
 
           <Box className={formGroup}>

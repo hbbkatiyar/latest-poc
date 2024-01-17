@@ -531,8 +531,8 @@ function CustomerDetails({
                   autoComplete="off"
                   // placeholder="Name"
                   helperText={errorMessage.name}
-                  // disabled={true}
-                  // className="disabled"
+                  disabled={true}
+                  className="disabled"
                   fullWidth
                 />
               </Box>
@@ -551,8 +551,8 @@ function CustomerDetails({
                   autoComplete="off"
                   // placeholder="Mobile"
                   helperText={errorMessage.mobile}
-                  // disabled={true}
-                  // className="disabled"
+                  disabled={true}
+                  className="disabled"
                   fullWidth
                 />
               </Box>
@@ -592,8 +592,8 @@ function CustomerDetails({
                   // placeholder="Date of Birth"
                   helperText={errorMessage.dob}
                   style={{ width: "100%" }}
-                  // disabled={true}
-                  // className="disabled"
+                  disabled={true}
+                  className="disabled"
                   fullWidth
                 />
               </Box>
@@ -611,8 +611,8 @@ function CustomerDetails({
                   onChange={handleChange}
                   autoComplete="off"
                   helperText={errorMessage.gender}
-                  // disabled={true}
-                  // className="disabled"
+                  disabled={true}
+                  className="disabled"
                   fullWidth
                 />
               </Box>
@@ -630,8 +630,8 @@ function CustomerDetails({
                   autoComplete="off"
                   // placeholder="Date of Birth"
                   helperText={errorMessage.address}
-                  // disabled={true}
-                  // className="disabled"
+                  disabled={true}
+                  className="disabled"
                   fullWidth
                 />
               </Box>

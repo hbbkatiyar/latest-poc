@@ -3,7 +3,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import renderHTML from "react-render-html";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { useHistory } from "react-router-dom";
-import { Box, Button, Typography, TextField } from "@material-ui/core";
+import { Box, Button, InputAdornment, IconButton, OutlinedInput, Typography, TextField } from "@material-ui/core";
 import { useStyles } from "./indexStyles";
 import {
   getQueryStringParameterValue,
@@ -12,7 +12,8 @@ import {
 } from "../../helpers/utils";
 import { validations } from "../../messages/validation";
 import { Utils } from "../../constants/utils";
-import VisibilityIcon from "@material-ui/icons/Visibility";
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const Login = ({
   classes: {
@@ -43,6 +44,7 @@ const Login = ({
   const [form, setForm] = useState({
     empcode: "",
     password: "",
+    showPassword: false,
     hasError: false,
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -128,6 +130,10 @@ const Login = ({
     setFormState(event.target.name, event.target.value);
   };
 
+  const handlePasswordChange = (prop) => (event) => {
+    setForm({ ...form, [prop]: event.target.value });
+  };
+
   const navigateTo = (pathname) => history.push({ pathname });
 
   const submitLogin = (event) => {
@@ -141,6 +147,14 @@ const Login = ({
 
   const toggleInput = () => {
     setInputType(inputType === "password" ? "text" : "password");
+  };
+
+  const handleClickShowPassword = () => {
+    setForm({ ...form, showPassword: !form.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -184,7 +198,25 @@ const Login = ({
           <Typography variant={"body2"} className={question}>
             Password
           </Typography>
-          <TextField
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={form.showPassword ? 'text' : 'password'}
+            value={form.password}
+            onChange={handlePasswordChange('password')}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {form.showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={70}
+          />
+          {/* <TextField
             type={inputType}
             id="standard-basic"
             variant="outlined"
@@ -197,12 +229,7 @@ const Login = ({
             autoComplete="off"
             // placeholder="Password"
             helperText={errorMessage.password}
-          />
-          {form.password && (
-            <Box className={passwordIcon}>
-              <VisibilityIcon onClick={toggleInput} />
-            </Box>
-          )}
+          /> */}
         </Box>
 
         {errors.length > 0 && (

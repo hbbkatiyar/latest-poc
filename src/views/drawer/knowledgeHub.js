@@ -80,7 +80,7 @@ function KnowledgeHub({
   const downloadClickHandler = (slug) => {
     redirectWithBlank(
       slug === "videos"
-        ? "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_20mb.mp4"
+        ? "https://www.youtube.com/watch?v=RpSsF4ZMTCg"
         : "http://demo-partnerportal.s3-website.ap-south-1.amazonaws.com/Aviva_New_Group_Term_Life_122N141V03.pdf"
     );
   };

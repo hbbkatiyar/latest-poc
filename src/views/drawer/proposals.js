@@ -9,7 +9,7 @@ function Proposals({ classes: { container, main, section } }) {
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <Box mt={3}>
-          <Typography variant="h5">Proposals Status</Typography>
+          <Typography variant="h5">Proposal Status</Typography>
         </Box>
         <Box m={1}>&nbsp;</Box>
         <ProposalTable />

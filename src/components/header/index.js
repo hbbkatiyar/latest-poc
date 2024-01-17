@@ -87,10 +87,10 @@ function SubHeader({
     >
       <List>
         {[
-          { text: "Products", slug: "dashboard" },
+          { text: "Home", slug: "dashboard" },
           { text: "Knowledge Hub", slug: "knowledgeHub" },
-          { text: "Proposals Status", slug: "proposals" },
-          { text: "Policies COI", slug: "policies" },
+          { text: "Proposal Status", slug: "proposals" },
+          { text: "Policy COI", slug: "policies" },
           { text: "Logout", slug: "logout" },
         ].map((item, index) => (
           <ListItem
