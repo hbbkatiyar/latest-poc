@@ -85,7 +85,7 @@ const useStyles = makeStyles({
 export default function CustomizedTables() {
   const classes = useStyles();
 
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(localStorage.getItem("policyDashboardTab") ? Number(localStorage.getItem("policyDashboardTab")) : 1);
 
   const dataToConvert = {
     data: data[value],

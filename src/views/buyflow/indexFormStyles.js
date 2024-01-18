@@ -350,5 +350,48 @@ export const useStyles = (theme) =>
     },
     marginTop20: {
       marginTop: "20%",
-    }
+    },
+    performanceCardsBox: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      margin: theme.spacing(5, 0),
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+        width: "100%",
+      },
+      [theme.breakpoints.up("md")]: {
+        flexDirection: "row",
+        width: "auto",
+      },
+      [theme.breakpoints.up("lg")]: {
+        flexDirection: "row",
+        width: "auto",
+      },
+    },
+    performanceCards: {
+      boxShadow: "8px 8px 5px #ECF0F4",
+      minWidth: "200px",
+      backgroundColor: "#f4f5f5",
+      // textAlign: "left",
+      borderRadius: "3vh",
+      [theme.breakpoints.down("sm")]: {
+        width: "80%",
+        margin: theme.spacing(2),
+        padding: theme.spacing(3, 4),
+      },
+      [theme.breakpoints.up("md")]: {
+        width: "auto",
+        margin: theme.spacing(0, 2),
+        padding: theme.spacing(3),
+      },
+      [theme.breakpoints.up("lg")]: {
+        width: "auto",
+        margin: theme.spacing(0, 2),
+        padding: theme.spacing(3),
+      },
+    },
+    spacing: {
+      margin: theme.spacing(0, 0, 1),
+    },
   });

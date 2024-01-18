@@ -7,6 +7,7 @@ import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import AssignmentReturnIcon from "@material-ui/icons/AssignmentReturn";
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import HomeIcon from '@material-ui/icons/Home';
+import DnsIcon from '@material-ui/icons/Dns';
 import {
   Box,
   Grid,
@@ -87,7 +88,8 @@ function SubHeader({
     >
       <List>
         {[
-          { text: "Product", slug: "dashboard" },
+          { text: "Dashboard", slug: "dashboard" },
+          { text: "Product", slug: "product" },
           { text: "Knowledge Hub", slug: "knowledgeHub" },
           { text: "Proposal Status", slug: "proposals" },
           { text: "Policy COI", slug: "policies" },
@@ -100,10 +102,11 @@ function SubHeader({
           >
             <ListItemIcon>
               {index === 0 && <HomeIcon style={{ color: '#ffd900' }} />}
-              {index === 1 && <LibraryBooksIcon style={{ color: '#014FB6' }} />}
-              {index === 2 && <AutorenewIcon style={{ color: 'orange' }} />}
-              {index === 3 && <PolicyIcon style={{ color: '#05B050' }} />}
-              {index === 4 && <ExitToAppIcon style={{ color: '#C00001' }} />}
+              {index === 1 && <DnsIcon  style={{ color: '#000000' }} />}
+              {index === 2 && <LibraryBooksIcon style={{ color: '#014FB6' }} />}
+              {index === 3 && <AutorenewIcon style={{ color: 'orange' }} />}
+              {index === 4 && <PolicyIcon style={{ color: '#05B050' }} />}
+              {index === 5 && <ExitToAppIcon style={{ color: '#C00001' }} />}
             </ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItem>

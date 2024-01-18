@@ -11,7 +11,7 @@ import {
 
 export const routes = {
   home: "/",
-  dashboard: "/buyflow/product-selection",
+  dashboard: "/buyflow/dashboard",
   product: "/buyflow/product-selection",
   customer: "/buyflow/customer-details",
   payment: "/buyflow/payment",

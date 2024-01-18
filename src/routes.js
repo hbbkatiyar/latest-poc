@@ -7,6 +7,7 @@ import MainLayout from "./components/layout/index";
 import BuyflowLayout from "./components/layout/buyflow";
 import Login from "./views/login";
 import Buyflow from "./views/buyflow/index";
+import BuyflowDashboard from "./views/buyflow/dashboard";
 import BuyflowProductSelection from "./views/buyflow/product";
 import BuyflowCustomerDetails from "./views/buyflow/customer";
 import BuyflowPayment from "./views/buyflow/payment";
@@ -45,6 +46,12 @@ function Routes() {
           />
           <RouteWithLayout
             path={getRoute("dashboard")}
+            exact
+            layout={MainLayout}
+            component={BuyflowDashboard}
+          />
+          <RouteWithLayout
+            path={getRoute("product")}
             exact
             layout={MainLayout}
             component={BuyflowProductSelection}

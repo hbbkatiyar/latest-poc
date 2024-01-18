@@ -90,11 +90,11 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables({ clickHandler }) {
   const classes = useStyles();
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(localStorage.getItem("proposalDashboardTab") ? Number(localStorage.getItem("proposalDashboardTab")) : 1);
 
   const dataToConvert = {
     data: data[value],
-    filename: "propsal",
+    filename: "proposal",
     delimiter: ",",
     headers: ["Proposal", "Name", "Status"],
   };
