@@ -81,7 +81,7 @@ function KnowledgeHub({
     redirectWithBlank(
       slug === "videos"
         ? "https://www.youtube.com/watch?v=RpSsF4ZMTCg"
-        : "http://demo-partnerportal.s3-website.ap-south-1.amazonaws.com/Aviva_New_Group_Term_Life_122N141V03.pdf"
+        : "/Aviva_New_Group_Term_Life_122N141V03.pdf"
     );
   };
 

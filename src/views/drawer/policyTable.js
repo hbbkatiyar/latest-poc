@@ -106,7 +106,7 @@ export default function CustomizedTables() {
 
   const downloadClickHandler = (slug) => {
     redirectWithBlank(
-      "http://demo-partnerportal.s3-website.ap-south-1.amazonaws.com/certificate.pdf"
+      "/AGTL_GT100142_SM2212230000000001_1.pdf"
     );
   };
 
