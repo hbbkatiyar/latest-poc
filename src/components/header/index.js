@@ -87,7 +87,7 @@ function SubHeader({
     >
       <List>
         {[
-          { text: "Home", slug: "dashboard" },
+          { text: "Product", slug: "dashboard" },
           { text: "Knowledge Hub", slug: "knowledgeHub" },
           { text: "Proposal Status", slug: "proposals" },
           { text: "Policy COI", slug: "policies" },

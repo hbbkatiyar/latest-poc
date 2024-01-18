@@ -7,10 +7,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Button, Grid, Typography } from "@material-ui/core";
 // import Paper from '@material-ui/core/Paper';
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import csvDownload from "json-to-csv-export";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import ShareIcon from "@material-ui/icons/Share";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -50,18 +53,57 @@ const rows = {
     createData("PR0003", "-", "e-KYC"),
     createData("PR0004", "Man Singla", "Nominee"),
     createData("PR0005", "Amit Kumar", "Nominee"),
-  ]
+  ],
+};
+
+const data = {
+  0: [
+    { proposal: "PR0003", name: "-", status: "e-KYC" },
+    { proposal: "PR0005", name: "Amit Kumar", status: "Nominee" },
+  ],
+  1: [
+    { proposal: "PR0001", name: "Ansh Katiyar", status: "Payment" },
+    { proposal: "PR0003", name: "-", status: "e-KYC" },
+    { proposal: "PR0005", name: "Amit Kumar", status: "Nominee" },
+  ],
+  2: [
+    { proposal: "PR0001", name: "Ansh Katiyar", status: "Payment" },
+    { proposal: "PR0002", name: "Palak Gupta", status: "Payment" },
+    { proposal: "PR0003", name: "-", status: "e-KYC" },
+    { proposal: "PR0004", name: "Man Singla", status: "Nominee" },
+    { proposal: "PR0005", name: "Amit Kumar", status: "Nominee" },
+  ],
 };
 
 const useStyles = makeStyles({
   table: {
     minWidth: 350,
   },
+  buyButton: {
+    borderRadius: "2vh",
+  },
+  button: {
+    width: "100%",
+    padding: "14px 16px",
+  },
 });
 
 export default function CustomizedTables({ clickHandler }) {
   const classes = useStyles();
   const [value, setValue] = useState(1);
+
+  const dataToConvert = {
+    data: data[value],
+    filename: "propsal",
+    delimiter: ",",
+    headers: ["Proposal", "Name", "Status"],
+  };
+
+  const tabIndex = {
+    0: "Month",
+    1: "Week",
+    2: "Year"
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -85,8 +127,26 @@ export default function CustomizedTables({ clickHandler }) {
         </Paper>
       </Box>
 
+      <Box mt={2} ml={1} mr={1} mb={2} display={"flex"} justifyContent={"space-between"}>
+        <Box style={{ marginTop: "12px"}}>
+          <Typography variant="body2">Proposal: {rows[value].length}</Typography>
+        </Box>
+        <Box>
+          <Button
+            type={"click"}
+            variant={"contained"}
+            className={`${classes.buyButton} ${classes.button}`}
+            color={"primary"}
+            size={"small"}
+            onClick={() => csvDownload(dataToConvert)}
+          >
+            <ShareIcon />
+          </Button>
+        </Box>
+      </Box>
+
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
+        <Table aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Proposal</StyledTableCell>
