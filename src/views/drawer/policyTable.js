@@ -128,11 +128,11 @@ export default function CustomizedTables() {
         </Paper>
       </Box>
 
-      <Box m={2} display={"flex"} justifyContent={"space-between"}>
-        <Box style={{ marginTop: "12px" }}>
-          <Typography variant="body2">Total Policy: {rows[value].length}</Typography>
-        </Box>
+      <Box m={2} display={"flex"} justifyContent={"center"}>
         <Box>
+          <Typography variant="subtitle2">Total Policy: {`0${rows[value].length}`}</Typography>
+        </Box>
+        {/* <Box>
           <Button
             type={"click"}
             variant={"contained"}
@@ -143,7 +143,7 @@ export default function CustomizedTables() {
           >
             <ShareIcon />
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       <TableContainer component={Paper}>

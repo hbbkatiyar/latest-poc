@@ -127,11 +127,11 @@ export default function CustomizedTables({ clickHandler }) {
         </Paper>
       </Box>
 
-      <Box mt={2} ml={1} mr={1} mb={2} display={"flex"} justifyContent={"space-between"}>
-        <Box style={{ marginTop: "12px"}}>
-          <Typography variant="body2">Proposal: {rows[value].length}</Typography>
-        </Box>
+      <Box mt={2} ml={1} mr={1} mb={2} display={"flex"} justifyContent={"center"}>
         <Box>
+          <Typography variant="subtitle2">Proposal: {`0${rows[value].length}`}</Typography>
+        </Box>
+        {/* <Box>
           <Button
             type={"click"}
             variant={"contained"}
@@ -142,7 +142,7 @@ export default function CustomizedTables({ clickHandler }) {
           >
             <ShareIcon />
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       <TableContainer component={Paper}>
