@@ -28,13 +28,13 @@ function BuyflowHealthDeclation({
   const onSubmit = (event) => {
     event.preventDefault();
 
-    navigateTo(getRoute("submitted"));
+    navigateTo(getRoute("status"));
   };
 
   const handleClick = (event) => {
     event.preventDefault();
 
-    navigateTo(getRoute("submitted"));
+    navigateTo(getRoute("status"));
   };
 
   return isLoaded ? (

@@ -13,6 +13,7 @@ import BuyflowCustomerDetails from "./views/buyflow/customer";
 import BuyflowPayment from "./views/buyflow/payment";
 import BuyflowNomineeDetails from "./views/buyflow/nominee";
 import BuyflowHealthDeclaration from "./views/buyflow/declaration";
+import BuyflowApplicationStatus from "./views/buyflow/status";
 import BuyflowApplicationSubmitted from "./views/buyflow/submitted";
 import CustomerLivelinessCheck from "./views/buyflow/liveliness";
 import KnowledgeHub from "./views/drawer/knowledgeHub";
@@ -79,6 +80,12 @@ function Routes() {
             exact
             layout={MainLayout}
             component={BuyflowHealthDeclaration}
+          />
+          <RouteWithLayout
+            path={getRoute("status")}
+            exact
+            layout={MainLayout}
+            component={BuyflowApplicationStatus}
           />
           <RouteWithLayout
             path={getRoute("submitted")}

@@ -22,6 +22,7 @@ export const routes = {
   knowledgeHub: "/drawer/knowledge-hub",
   proposals: "/drawer/proposals-status",
   policies: "/drawer/policies-coi",
+  status: "/buyflow/application-status",
 };
 
 export const sectionTitle = {
