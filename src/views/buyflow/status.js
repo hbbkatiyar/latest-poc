@@ -18,7 +18,7 @@ function BuyflowApplicationStatus({
   useEffect(() => {
     setTimeout(() => {
       setIsProcessed(true);
-    }, 10000);
+    }, 5000);
   }, []);
 
   useEffect(() => {
