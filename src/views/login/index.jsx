@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import renderHTML from "react-render-html";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { useHistory } from "react-router-dom";
-import { Box, Button, InputAdornment, IconButton, OutlinedInput, Typography, TextField } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  InputAdornment,
+  IconButton,
+  OutlinedInput,
+  Typography,
+  TextField,
+} from "@material-ui/core";
 import { useStyles } from "./indexStyles";
 import {
   getQueryStringParameterValue,
@@ -12,8 +22,7 @@ import {
 } from "../../helpers/utils";
 import { validations } from "../../messages/validation";
 import { Utils } from "../../constants/utils";
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { isLoginButtonDisabled } from "../../helpers/validation";
 
 const Login = ({
   classes: {
@@ -29,13 +38,11 @@ const Login = ({
     formGroup,
     partnerName,
     question,
-    passwordIcon,
   },
   classes,
 }) => {
   const history = useHistory();
   const partnerId = getQueryStringParameterValue("partnerId") ?? 1001;
-  const [inputType, setInputType] = useState("password");
   const [errorMessage, setErrorMessage] = useState({
     empcode: "",
     password: "",
@@ -59,8 +66,6 @@ const Login = ({
       navigateTo(getRoute("dashboard"));
     }
   });
-
-  // useEffect(() => validateMobile(), [form.mobile]);
 
   useEffect(() => validateRequiredInput("empcode"), [form.empcode]);
 
@@ -134,21 +139,6 @@ const Login = ({
     setForm({ ...form, [prop]: event.target.value });
   };
 
-  const navigateTo = (pathname) => history.push({ pathname });
-
-  const submitLogin = (event) => {
-    event.preventDefault();
-
-    setStorageItem("partnerId", partnerId);
-    setStorageItem("token", `${form.empcode}_${form.password}`);
-
-    navigateTo(getRoute("dashboard"));
-  };
-
-  const toggleInput = () => {
-    setInputType(inputType === "password" ? "text" : "password");
-  };
-
   const handleClickShowPassword = () => {
     setForm({ ...form, showPassword: !form.showPassword });
   };
@@ -157,14 +147,20 @@ const Login = ({
     event.preventDefault();
   };
 
+  const navigateTo = (pathname) => history.push({ pathname });
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    setStorageItem("partnerId", partnerId);
+    setStorageItem("token", `${form.empcode}_${form.password}`);
+
+    navigateTo(getRoute("dashboard"));
+  };
+
   return (
     <Box className={formInputCard}>
-      <form
-        noValidate
-        autoComplete="off"
-        className={input}
-        onSubmit={submitLogin}
-      >
+      <form noValidate autoComplete="off" className={input} onSubmit={onSubmit}>
         <Box m={1}>&nbsp;</Box>
 
         <Box
@@ -189,7 +185,6 @@ const Login = ({
             onChange={handleChange}
             onFocus={toggleClass}
             autoComplete="off"
-            // placeholder="Employee ID"
             helperText={errorMessage.empcode}
           />
         </Box>
@@ -200,9 +195,9 @@ const Login = ({
           </Typography>
           <OutlinedInput
             id="outlined-adornment-password"
-            type={form.showPassword ? 'text' : 'password'}
+            type={form.showPassword ? "text" : "password"}
             value={form.password}
-            onChange={handlePasswordChange('password')}
+            onChange={handlePasswordChange("password")}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -216,20 +211,11 @@ const Login = ({
             }
             labelWidth={70}
           />
-          {/* <TextField
-            type={inputType}
-            id="standard-basic"
-            variant="outlined"
-            value={form.password}
-            className={!onfocusMobile ? mobileInput : mobileInputFocus}
-            name="password"
-            onInput={validateInputLength}
-            onChange={handleChange}
-            onFocus={toggleClass}
-            autoComplete="off"
-            // placeholder="Password"
-            helperText={errorMessage.password}
-          /> */}
+          {errorMessage.password && (
+            <Box className={"error-message"}>
+              <Typography variant={"p"}>{errorMessage.password}</Typography>
+            </Box>
+          )}
         </Box>
 
         {errors.length > 0 && (
@@ -239,7 +225,6 @@ const Login = ({
                 <Typography
                   key={index}
                   className={`mb-5 ${errorMsg}`}
-                  // color={"primary"}
                   variant={"body2"}
                 >
                   {item}
@@ -261,11 +246,7 @@ const Login = ({
             color="primary"
             className={button}
             fullWidth
-            {...((isFormSubmitted ||
-              !form.empcode ||
-              !form.password ||
-              errorMessage.empcode ||
-              errorMessage.password) && {
+            {...(isLoginButtonDisabled(isFormSubmitted, form, errorMessage) && {
               disabled: true,
             })}
           >

@@ -11,7 +11,7 @@ import { useHistory } from "react-router";
 import Webcam from "react-webcam";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
-function CustomerLivelinessCheck({
+function BuyflowCustomerLivelinessCheck({
   classes: {
     autoPayIcon,
     capturePhoto,
@@ -117,5 +117,5 @@ function CustomerLivelinessCheck({
 }
 
 export default withStyles(useStyles, { withTheme: true })(
-  CustomerLivelinessCheck
+  BuyflowCustomerLivelinessCheck
 );

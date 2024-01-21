@@ -4,9 +4,11 @@ import { getRoute } from "./helpers/utils";
 import ApplicationReducer from "./reducers";
 import ApplicationContext from "./context/index";
 import MainLayout from "./components/layout/index";
-import BuyflowLayout from "./components/layout/buyflow";
+// Created this additional BuyflowLayout but not in use right now, if someon ewant to use then can use it in the buyflow
+// import BuyflowLayout from "./components/layout/buyflow";
 import Login from "./views/login";
-import Buyflow from "./views/buyflow/index";
+// Uncomment this Buyflow Component, if someone want to use a common entry component for Buyflow.
+// import Buyflow from "./views/buyflow/index";
 import BuyflowDashboard from "./views/buyflow/dashboard";
 import BuyflowProductSelection from "./views/buyflow/product";
 import BuyflowCustomerDetails from "./views/buyflow/customer";
@@ -15,7 +17,7 @@ import BuyflowNomineeDetails from "./views/buyflow/nominee";
 import BuyflowHealthDeclaration from "./views/buyflow/declaration";
 import BuyflowApplicationStatus from "./views/buyflow/status";
 import BuyflowApplicationSubmitted from "./views/buyflow/submitted";
-import CustomerLivelinessCheck from "./views/buyflow/liveliness";
+import BuyflowCustomerLivelinessCheck from "./views/buyflow/liveliness";
 import KnowledgeHub from "./views/drawer/knowledgeHub";
 import Proposals from "./views/drawer/proposals";
 import Policies from "./views/drawer/policies";
@@ -39,12 +41,15 @@ function Routes() {
     <Router>
       <Switch>
         <ApplicationContext.Provider value={{ state, dispatch }}>
+          {/* Login Section Route */}
           <RouteWithLayout
             path={getRoute("home")}
             exact
             layout={MainLayout}
             component={Login}
           />
+
+          {/* Buyflow Section Routes */}
           <RouteWithLayout
             path={getRoute("dashboard")}
             exact
@@ -97,8 +102,10 @@ function Routes() {
             path={getRoute("liveliness")}
             exact
             layout={MainLayout}
-            component={CustomerLivelinessCheck}
+            component={BuyflowCustomerLivelinessCheck}
           />
+
+          {/* Hamburger Section Routes */}
           <RouteWithLayout
             path={getRoute("knowledgeHub")}
             exact
@@ -117,19 +124,6 @@ function Routes() {
             layout={MainLayout}
             component={Policies}
           />
-
-          {/* <RouteWithLayout
-            path={`${getRoute("newClaim")}/:order`}
-            exact
-            layout={MainLayout}
-            component={Proposal}
-          /> */}
-          {/* <RouteWithLayout
-            path={`${getRoute("summary")}/:order`}
-            exact
-            layout={MainLayout}
-            component={ProposalSummary}
-          /> */}
         </ApplicationContext.Provider>
       </Switch>
     </Router>

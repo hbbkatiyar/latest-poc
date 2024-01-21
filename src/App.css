@@ -226,3 +226,7 @@ body {
 .marginTop30 {
   margin-top: 30% !important;
 }
+.MuiFormHelperText-contained {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
