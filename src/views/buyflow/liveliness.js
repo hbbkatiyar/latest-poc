@@ -1,32 +1,27 @@
 import React, { useContext, useState, useRef, useCallback } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import CallToAction from "./partials/cta";
-import ErrorMessage from "./partials/error";
-import ApplicationContext from "../../context/index";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import SectionTitle from "../../components/sectionTitle";
+import Webcam from "react-webcam";
+import withStyles from "@material-ui/core/styles/withStyles";
 import { useStyles } from "./indexFormStyles";
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { getRoute, getStorageItem, setStorageItem } from "../../helpers/utils";
 import { useHistory } from "react-router";
-import Webcam from "react-webcam";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 function BuyflowCustomerLivelinessCheck({
   classes: {
     autoPayIcon,
     capturePhoto,
-    policyIssuance,
     container,
     main,
     loaderBox,
-    screenshotIcon,
     webcamContainer,
   },
 }) {
-  const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
   const [errorMessage, setErrorMessage] = useState({});
-  const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({});
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -38,9 +33,9 @@ function BuyflowCustomerLivelinessCheck({
   const webcamRef = useRef(null);
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
+
     setCapturedImage(imageSrc);
     setStorageItem("capturedImage", imageSrc);
-    // Do something with the captured image
   }, [webcamRef]);
 
   const navigateTo = (pathname) => history.push({ pathname });
@@ -51,18 +46,10 @@ function BuyflowCustomerLivelinessCheck({
     navigateTo(getRoute("dashboard"));
   };
 
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    navigateTo(getRoute("dashboard"));
-  };
-
   return isLoaded ? (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
-        <Box m={3}>
-          <Typography variant="h5">Customer liveliness Check</Typography>
-        </Box>
+        <SectionTitle title={"Customer liveliness Check"} />
 
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
           <Box m={1} display="flex" justifyContent="center">
@@ -103,7 +90,6 @@ function BuyflowCustomerLivelinessCheck({
             isDisabled={isFormSubmitted}
             isFormSubmitted={isFormSubmitted}
             text={"Dashboard"}
-            handleClick={handleClick}
             marginTopClass={"marginTop10"}
           />
         </form>

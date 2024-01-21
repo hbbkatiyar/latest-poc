@@ -1,17 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-import ApplicationContext from "../../context/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import SectionTitle from "../../components/sectionTitle";
 import { useStyles } from "./indexFormStyles";
 import { Box, Typography } from "@material-ui/core";
 import { getRoute } from "../../helpers/utils";
 import { useHistory } from "react-router";
-import LinearProgress from "@material-ui/core/LinearProgress";
 
 function BuyflowApplicationStatus({
-  classes: { autoPay, autoPayIcon, container, main, loaderBox, question },
+  classes: { container, main },
 }) {
-  const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
   const [isProcessed, setIsProcessed] = useState(false);
 
@@ -29,24 +27,10 @@ function BuyflowApplicationStatus({
 
   const navigateTo = (pathname) => history.push({ pathname });
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    navigateTo(getRoute("submitted"));
-  };
-
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    navigateTo(getRoute("submitted"));
-  };
-
   return (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
-        <Box m={1}>
-          <Typography variant="h5">Application Status</Typography>
-        </Box>
+        <SectionTitle title={"Application Status"} />
         <Box m={5}>&nbsp;</Box>
         <Box m={5}>
           <CircularProgress />

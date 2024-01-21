@@ -4,15 +4,14 @@ import CallToAction from "./partials/cta";
 import ErrorMessage from "./partials/error";
 import ApplicationContext from "../../context/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import SectionTitle from "../../components/sectionTitle";
 import { useStyles } from "./indexFormStyles";
 import { Box, Typography } from "@material-ui/core";
 import { getRoute } from "../../helpers/utils";
 import { useHistory } from "react-router";
-import { Images } from "../../constants/images";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 function BuyflowHealthDeclation({
-  classes: { autoPay, autoPayIcon, container, main, loaderBox, question },
+  classes: { container, main, loaderBox, },
 }) {
   const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
@@ -31,18 +30,10 @@ function BuyflowHealthDeclation({
     navigateTo(getRoute("status"));
   };
 
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    navigateTo(getRoute("status"));
-  };
-
   return isLoaded ? (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
-        <Box m={3}>
-          <Typography variant="h5">Health Declaration</Typography>
-        </Box>
+        <SectionTitle title={"Health Declaration"} />
 
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
           <Box textAlign={"left"} style={{color: "#4F6F97"}}>
@@ -59,7 +50,6 @@ function BuyflowHealthDeclation({
             isDisabled={isFormSubmitted}
             isFormSubmitted={isFormSubmitted}
             text={"Accept"}
-            handleClick={handleClick}
             marginTopClass={"marginTop10"}
           />
         </form>
