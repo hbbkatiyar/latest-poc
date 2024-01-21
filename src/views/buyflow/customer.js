@@ -1,21 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import CallToAction from "./partials/cta";
-import ErrorMessage from "./partials/error";
 import ApplicationContext from "../../context/index";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import CustomerAadhaarForm from "./aadhaarForm";
+import CustomerAadhaarOTPForm from "./otpForm";
+import CustomerDetailsForm from "./customerForm";
+import SectionTitle from "../../components/sectionTitle";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import moment from "moment";
+import withStyles from "@material-ui/core/styles/withStyles";
 import { useStyles } from "./indexFormStyles";
-import {
-  Box,
-  Button,
-  Grid,
-  Hidden,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import {
   getRoute,
   getStorageItem,
@@ -33,38 +28,28 @@ import {
   getMaxDobDate,
 } from "../../helpers/buyflow";
 import { FORM_FIELD_MOBILE } from "../../constants/field";
-import { FORMAT_DD_MM_YYYY } from "../../constants/index";
+import {
+  AADHAAR_NUMBER_LIST,
+  DEFAULT_AADHAAR_NUMBER,
+  FORMAT_DD_MM_YYYY,
+} from "../../constants/index";
 
-function CustomerDetails({
-  classes: {
-    container,
-    main,
-    formGroup,
-    gutterTop,
-    textField,
-    loaderBox,
-    buyButton,
-    button,
-    question,
-    mainCta,
-    text,
-    buttonText,
-    loaderStyle,
-    marginTop20,
-    customBtn,
-  },
-}) {
+const defaultCustomerObject = {
+  aadhaar_number: false,
+  email: false,
+  otp: false,
+  mobile: false,
+  name: false,
+  dob: false,
+  gender: false,
+  address: false,
+};
+
+function CustomerDetails({ classes: { container, loaderBox, main } }) {
   const { state, dispatch } = useContext(ApplicationContext);
   const history = useHistory();
   const [errorMessage, setErrorMessage] = useState({
-    aadhaar_number: false,
-    email: false,
-    otp: false,
-    mobile: false,
-    name: false,
-    dob: false,
-    gender: false,
-    address: false,
+    ...defaultCustomerObject,
   });
   const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
@@ -89,47 +74,27 @@ function CustomerDetails({
   const [isLoaded, setIsLoaded] = useState(true);
   const [modal, setModal] = useState({ open: false });
   const [touchFields, setTouchFields] = useState({
-    aadhaar_number: false,
-    email: false,
-    otp: false,
-    mobile: false,
-    name: false,
-    dob: false,
-    gender: false,
-    address: false,
+    ...defaultCustomerObject,
   });
 
-  // dispatchEvent(ReducerUtils.product.details, productDetails);
+  /* Start: Form Validation Section */
+  useEffect(
+    () => validatePanAndAadhaarNumber("aadhaar_number", form.aadhaar_number),
+    [form.aadhaar_number]
+  );
 
-  useEffect(() => {
-    validatePanAndAadhaarNumber("aadhaar_number", form.aadhaar_number);
-  }, [form.aadhaar_number]);
+  useEffect(() => validateEmail("email"), [form.email]);
 
-  useEffect(() => {
-    validateEmail("email");
-  }, [form.email]);
+  useEffect(() => validateMobile(), [form.mobile]);
 
-  useEffect(() => {
-    validateMobile();
-  }, [form.mobile]);
+  useEffect(() => validateRequiredInput("name"), [form.name]);
 
-  useEffect(() => {
-    validateRequiredInput("name");
-  }, [form.name]);
+  useEffect(() => validateDateOfBirth("dob"), [form.dob]);
 
-  useEffect(() => {
-    validateDateOfBirth("dob");
-  }, [form.dob]);
+  useEffect(() => validateRequiredInput("gender"), [form.gender]);
 
-  useEffect(() => {
-    validateRequiredInput("gender");
-  }, [form.gender]);
+  useEffect(() => validateRequiredInput("address"), [form.address]);
 
-  useEffect(() => {
-    validateRequiredInput("address");
-  }, [form.address]);
-
-  /* Start: Customer Details Section */
   const validateMobile = () => {
     if (form[FORM_FIELD_MOBILE]) {
       let isValid = isMobilePhone(form[FORM_FIELD_MOBILE], ["en-IN"]);
@@ -154,10 +119,9 @@ function CustomerDetails({
         isValid,
         isValid ? "" : validations[fieldName].valid
       );
+    } else if (touchFields[fieldName]) {
+      setErrorMessageState(fieldName, validations[fieldName].required);
     }
-    // else if (touchFields[fieldName]) {
-    //   setErrorMessageState(fieldName, validations[fieldName].required);
-    // }
   };
 
   const validateDateOfBirth = (fieldName) => {
@@ -207,7 +171,6 @@ function CustomerDetails({
       setErrorMessageState(fieldName, validations[fieldName].required);
     }
   };
-  /* End: Customer Details Section */
 
   const setStateVariables = (key, isValid, message) => {
     setFormState("hasError", !isValid);
@@ -227,113 +190,6 @@ function CustomerDetails({
     }
   };
 
-  const dispatchEvent = (type, payload) => dispatch({ type, payload });
-
-  const setFormState = (name, value) => setForm({ ...form, [name]: value });
-
-  const setErrorMessageState = (name, value) =>
-    setErrorMessage({ ...errorMessage, [name]: value });
-
-  const handleChange = (event) =>
-    setFormState(event.target.name, event.target.value);
-
-  const navigateTo = (pathname) => history.push({ pathname });
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    navigateTo(getRoute("payment"));
-  };
-
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    setStorageItem("email", form.email);
-    setStorageItem("mobile", form.mobile);
-    setStorageItem("name", form.name);
-    setStorageItem("dob", form.dob);
-    setStorageItem("gender", form.gender);
-    setStorageItem("address", form.address);
-
-    navigateTo(getRoute("payment"));
-  };
-
-  const cbError = ({ data: { error_msg } }) => {
-    setIsFormSubmitted(false);
-
-    const message = parseMessage(error_msg);
-    if (Array.isArray(message)) {
-      setErrors(message);
-    } else {
-      let messageArray = [];
-      messageArray.push(message);
-      setErrors(messageArray);
-    }
-  };
-
-  const handleGenerateOtp = async () => {
-    try {
-      setErrors([]);
-      setIsFormSubmitted(true);
-
-      const response = await getWebService(`/data/otp.json`);
-      const { data } = response.data;
-      console.log(data);
-      setIsFormSubmitted(false);
-      setForm({
-        ...form,
-        generateOtp: true,
-      });
-      setStorageItem("generateOtp", true);
-    } catch (error) {
-      console.log(error);
-      cbError(
-        error && error.response && error.response.data
-          ? error.response.data
-          : buildSystemErrorMessage()
-      );
-    }
-  };
-
-  const handleVerifyOtp = async () => {
-    try {
-      setErrors([]);
-      setIsFormSubmitted(true);
-
-      const folderName =
-        ["123456789012", "554787508115"].indexOf(form.aadhaar_number) > -1
-          ? form.aadhaar_number
-          : "123456789012";
-      const response = await getWebService(
-        `/data/${folderName}/customer-details.json`
-      );
-      const {
-        data: { email, mobile, name, dob, gender, address },
-        data,
-      } = response.data;
-      console.log(data);
-      setIsFormSubmitted(false);
-      setForm({
-        ...form,
-        verifyOtp: true,
-        email,
-        mobile,
-        name,
-        dob,
-        gender,
-        address,
-      });
-      setStorageItem("verifyOtp", true);
-    } catch (error) {
-      console.log(error);
-      cbError(
-        error && error.response && error.response.data
-          ? error.response.data
-          : buildSystemErrorMessage()
-      );
-    }
-  };
-
   const validateInputLength = (event) => {
     let elName = event.target.name;
     let elValue = event.target.value;
@@ -348,308 +204,151 @@ function CustomerDetails({
     }
   };
 
+  const setErrorMessageState = (name, value) =>
+    setErrorMessage({ ...errorMessage, [name]: value });
+
+  const setFormState = (name, value) => setForm({ ...form, [name]: value });
+  /* End: Form Validation Section */
+
+  const cbError = ({ data: { error_msg } }) => {
+    setIsFormSubmitted(false);
+
+    const message = parseMessage(error_msg);
+    if (Array.isArray(message)) {
+      setErrors(message);
+    } else {
+      let messageArray = [];
+      messageArray.push(message);
+      setErrors(messageArray);
+    }
+  };
+
+  const dispatchEvent = (type, payload) => dispatch({ type, payload });
+
+  const handleChange = (event) =>
+    setFormState(event.target.name, event.target.value);
+
+  const navigateTo = (pathname) => history.push({ pathname });
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    setStorageItem("email", form.email);
+    setStorageItem("mobile", form.mobile);
+    setStorageItem("name", form.name);
+    setStorageItem("dob", form.dob);
+    setStorageItem("gender", form.gender);
+    setStorageItem("address", form.address);
+    navigateTo(getRoute("payment"));
+  };
+
+  const cbSuccessGenerateOtp = ({ data }) => {
+    console.log(data);
+    setIsFormSubmitted(false);
+    setForm({
+      ...form,
+      generateOtp: true,
+    });
+    setStorageItem("generateOtp", true);
+  };
+
+  const onSubmitGenerateOtp = async (event) => {
+    try {
+      event.preventDefault();
+      setErrors([]);
+      setIsFormSubmitted(true);
+
+      const response = await getWebService(`/data/otp.json`);
+
+      cbSuccessGenerateOtp(response.data);
+    } catch (error) {
+      cbError(
+        error && error.response && error.response.data
+          ? error.response.data
+          : buildSystemErrorMessage()
+      );
+    }
+  };
+
+  const onSuccessVerifyOtp = ({
+    data: { email, mobile, name, dob, gender, address },
+  }) => {
+    setIsFormSubmitted(false);
+    setForm({
+      ...form,
+      verifyOtp: true,
+      email,
+      mobile,
+      name,
+      dob,
+      gender,
+      address,
+    });
+    setStorageItem("verifyOtp", true);
+  };
+
+  const onSubmitVerifyOtp = async (event) => {
+    try {
+      event.preventDefault();
+      setErrors([]);
+      setIsFormSubmitted(true);
+
+      const folderName =
+        AADHAAR_NUMBER_LIST.indexOf(form.aadhaar_number) > -1
+          ? form.aadhaar_number
+          : DEFAULT_AADHAAR_NUMBER;
+      const response = await getWebService(
+        `/data/${folderName}/customer-details.json`
+      );
+
+      onSuccessVerifyOtp(response.data);
+    } catch (error) {
+      cbError(
+        error && error.response && error.response.data
+          ? error.response.data
+          : buildSystemErrorMessage()
+      );
+    }
+  };
+
   return isLoaded ? (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
-        <Box m={3}>
-          <Typography variant="h5">
-            Customer Details <br />
-            e-KYC
-          </Typography>
-        </Box>
+        <SectionTitle title={"Customer Details"} secondaryTitle={"e-KYC"} />
 
         {!form.generateOtp && !form.verifyOtp && (
-          <>
-            <Box className={formGroup}>
-              <Typography variant="body2" className={question}>
-                Aadhaar Number
-              </Typography>
-              <TextField
-                id="standard-basic"
-                variant="outlined"
-                value={form.aadhaar_number}
-                name="aadhaar_number"
-                onInput={validateInputLength}
-                onChange={handleChange}
-                autoComplete="off"
-                helperText={errorMessage.aadhaar_number}
-                fullWidth
-              />
-            </Box>
-            <Box className={customBtn}>
-              <Typography variant="body2" className={question}></Typography>
-              <Button
-                type={"click"}
-                variant={"contained"}
-                className={`${buyButton} ${button}`}
-                color={"primary"}
-                size={"large"}
-                onClick={handleGenerateOtp}
-                {...((isFormSubmitted ||
-                  !form.aadhaar_number ||
-                  errorMessage.aadhaar_number) && { disabled: true })}
-              >
-                OTP
-              </Button>
-            </Box>
-          </>
-          /* <Box m={2} direction="column" style={{ width: "100%" }}>
-            <Grid container spacing={2}>
-              <Grid container item xs>
-                <Box className={formGroup}>
-                  <TextField
-                    id="standard-basic"
-                    variant="outlined"
-                    value={form.aadhaar_number}
-                    name="aadhaar_number"
-                    onInput={validateInputLength}
-                    onChange={handleChange}
-                    autoComplete="off"
-                    placeholder="Aadhaar Number"
-                    helperText={errorMessage.aadhaar_number}
-                  />
-                </Box>
-              </Grid>
-              <Grid container item xs="4">
-                <Box className={formGroup}>
-                  <Button
-                    type={"click"}
-                    variant={"contained"}
-                    className={`${buyButton} ${button}`}
-                    color={"primary"}
-                    size={"large"}
-                    onClick={handleGenerateOtp}
-                    {...((isFormSubmitted ||
-                      !form.aadhaar_number ||
-                      errorMessage.aadhaar_number) && { disabled: true })}
-                  >
-                    OTP
-                  </Button>
-                </Box>
-              </Grid>
-            </Grid>
-          </Box> */
+          <CustomerAadhaarForm
+            form={form}
+            errorMessage={errorMessage}
+            handleChange={handleChange}
+            isFormSubmitted={isFormSubmitted}
+            onSubmit={onSubmitGenerateOtp}
+            validateInputLength={validateInputLength}
+          />
         )}
 
         {form.generateOtp && !form.verifyOtp && (
-          <>
-            <Box className={formGroup}>
-              <Typography variant="body2" className={question}>
-                OTP
-              </Typography>
-              <TextField
-                id="standard-basic"
-                variant="outlined"
-                value={form.otp}
-                name="otp"
-                onInput={validateInputLength}
-                onChange={handleChange}
-                autoComplete="off"
-                // placeholder="OTP"
-                helperText={errorMessage.otp}
-                fullWidth
-              />
-            </Box>
-            <Box className={customBtn}>
-              <Button
-                type={"click"}
-                variant={"contained"}
-                className={`${buyButton} ${button}`}
-                color={"primary"}
-                size={"large"}
-                onClick={handleVerifyOtp}
-                {...((isFormSubmitted ||
-                  !form.otp ||
-                  errorMessage.otp ||
-                  form.otp.length !== 6) && {
-                  disabled: true,
-                })}
-              >
-                Verify
-              </Button>
-            </Box>
-          </>
-          /*
-          <Box m={2} direction="column" style={{ width: "100%" }}>
-            <Grid container spacing={2}>
-              <Grid container item xs>
-                <Box className={formGroup}>
-                  <Typography variant="body2" className={question}>
-                    OTP
-                  </Typography>
-                  <TextField
-                    id="standard-basic"
-                    variant="outlined"
-                    value={form.otp}
-                    name="otp"
-                    onInput={validateInputLength}
-                    onChange={handleChange}
-                    autoComplete="off"
-                    placeholder="OTP"
-                    helperText={errorMessage.otp}
-                  />
-                </Box>
-              </Grid>
-              <Grid container item xs>
-                <Box className={formGroup}>
-                  <Button
-                    type={"click"}
-                    variant={"contained"}
-                    className={`${buyButton} ${button}`}
-                    color={"primary"}
-                    size={"large"}
-                    onClick={handleVerifyOtp}
-                    {...((isFormSubmitted ||
-                      !form.otp ||
-                      errorMessage.otp ||
-                      form.otp.length !== 6) && {
-                      disabled: true,
-                    })}
-                  >
-                    Verify
-                  </Button>
-                </Box>
-              </Grid>
-            </Grid>
-          </Box> */
+          <CustomerAadhaarOTPForm
+            form={form}
+            errorMessage={errorMessage}
+            handleChange={handleChange}
+            isFormSubmitted={isFormSubmitted}
+            onSubmit={onSubmitVerifyOtp}
+            validateInputLength={validateInputLength}
+          />
         )}
 
         {form.verifyOtp && (
-          <form noValidate autoComplete="off" onSubmit={onSubmit}>
-            <Box direction="column" style={{ width: "100%" }}>
-              <Box className={formGroup}>
-                <Typography variant="body2" className={question}>
-                  Full Name
-                </Typography>
-                <TextField
-                  id="standard-basic"
-                  variant="outlined"
-                  value={form.name}
-                  name="name"
-                  onInput={validateInputLength}
-                  onChange={handleChange}
-                  autoComplete="off"
-                  // placeholder="Name"
-                  helperText={errorMessage.name}
-                  disabled={true}
-                  className="disabled"
-                  fullWidth
-                />
-              </Box>
-
-              <Box className={formGroup}>
-                <Typography variant="body2" className={question}>
-                  Mobile
-                </Typography>
-                <TextField
-                  id="standard-basic"
-                  variant="outlined"
-                  value={form.mobile}
-                  name="mobile"
-                  onInput={validateInputLength}
-                  onChange={handleChange}
-                  autoComplete="off"
-                  // placeholder="Mobile"
-                  helperText={errorMessage.mobile}
-                  disabled={true}
-                  className="disabled"
-                  fullWidth
-                />
-              </Box>
-
-              <Box className={formGroup}>
-                <Typography variant="body2" className={question}>
-                  Email
-                </Typography>
-                <TextField
-                  id="standard-basic"
-                  variant="outlined"
-                  value={form.email}
-                  name="email"
-                  onInput={validateInputLength}
-                  onChange={handleChange}
-                  autoComplete="off"
-                  helperText={errorMessage.email}
-                  // disabled={true}
-                  // className="disabled"
-                  fullWidth
-                />
-              </Box>
-
-              <Box className={formGroup}>
-                <Typography variant="body2" className={question}>
-                  Date of Birth
-                </Typography>
-                <TextField
-                  type="date"
-                  id="standard-basic"
-                  variant="outlined"
-                  value={form.dob}
-                  name="dob"
-                  onInput={validateInputLength}
-                  onChange={handleChange}
-                  autoComplete="off"
-                  // placeholder="Date of Birth"
-                  helperText={errorMessage.dob}
-                  style={{ width: "100%" }}
-                  disabled={true}
-                  className="disabled"
-                  fullWidth
-                />
-              </Box>
-
-              <Box className={formGroup}>
-                <Typography variant="body2" className={question}>
-                  Gender
-                </Typography>
-                <TextField
-                  id="standard-basic"
-                  variant="outlined"
-                  value={form.gender}
-                  name="gender"
-                  onInput={validateInputLength}
-                  onChange={handleChange}
-                  autoComplete="off"
-                  helperText={errorMessage.gender}
-                  disabled={true}
-                  className="disabled"
-                  fullWidth
-                />
-              </Box>
-              <Box className={formGroup}>
-                <Typography variant="body2" className={question}>
-                  Address
-                </Typography>
-                <TextField
-                  id="standard-basic"
-                  variant="outlined"
-                  value={form.address}
-                  name="address"
-                  onInput={validateInputLength}
-                  onChange={handleChange}
-                  autoComplete="off"
-                  // placeholder="Date of Birth"
-                  helperText={errorMessage.address}
-                  disabled={true}
-                  className="disabled"
-                  fullWidth
-                />
-              </Box>
-            </Box>
-
-            <ErrorMessage errors={errors} modal={modal} />
-
-            <CallToAction
-              buttonType={"submit"}
-              errorMessage={errorMessage}
-              form={form}
-              isDisabled={isFormSubmitted}
-              isFormSubmitted={isFormSubmitted}
-              text={"Make Payment"}
-              handleClick={handleClick}
-              marginTopClass={"marginTop10"}
-            />
-          </form>
+          <CustomerDetailsForm
+            form={form}
+            errorMessage={errorMessage}
+            errors={errors}
+            handleChange={handleChange}
+            isFormSubmitted={isFormSubmitted}
+            modal={modal}
+            onSubmit={onSubmit}
+            validateInputLength={validateInputLength}
+          />
         )}
       </Box>
     </Box>

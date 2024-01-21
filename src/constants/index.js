@@ -6,3 +6,5 @@ export const FORMAT_DD_MM_YYYY = "DD-MM-YYYY";
 export const AUTHORIZATION = "authorization";
 export const DEFAULT_PRODUCT_SUM_ASSURED = 300000;
 export const DEFAULT_PRODUCT_PREMIUM = 599;
+export const AADHAAR_NUMBER_LIST = ["123456789012", "554787508115"];
+export const DEFAULT_AADHAAR_NUMBER = "123456789012";

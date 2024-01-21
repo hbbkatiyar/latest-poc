@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import CallToAction from "./partials/cta";
-import ErrorMessage from "./partials/error";
 import ApplicationContext from "../../context/index";
+import CallToAction from "./partials/cta";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ErrorMessage from "./partials/error";
+import SectionTitle from "../../components/sectionTitle";
+import withStyles from "@material-ui/core/styles/withStyles";
 import { useStyles } from "./indexFormStyles";
 import { Box, Typography, TextField } from "@material-ui/core";
 import { getRoute } from "../../helpers/utils";
 import { useHistory } from "react-router";
 import { Images } from "../../constants/images";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { getStorageItem, setStorageItem } from "../../helpers/utils";
 
 function BuyflowPayment({
@@ -40,19 +41,12 @@ function BuyflowPayment({
     navigateTo(getRoute("nominee"));
   };
 
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    setStorageItem("upi_id", form.upi_id);
-    navigateTo(getRoute("nominee"));
-  };
-
   return isLoaded ? (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
-        <Box m={3}>
-          <Typography variant="h5" className={question}>Payment Section</Typography>
-        </Box>
+        <SectionTitle
+          title={"Payment Section"}
+        />
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
           <Box m={3} justifyContent="center">
             <TextField
@@ -86,7 +80,6 @@ function BuyflowPayment({
             isDisabled={isFormSubmitted}
             isFormSubmitted={isFormSubmitted}
             text={"Next"}
-            handleClick={handleClick}
             marginTopClass={"marginTop10"}
           />
         </form>
