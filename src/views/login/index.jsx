@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import FieldLabel from "../../components/label";
 import renderHTML from "react-render-html";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { useHistory } from "react-router-dom";
+import { validations } from "../../messages/validation";
+import { Utils } from "../../constants/utils";
+import { isLoginButtonDisabled } from "../../helpers/validation";
+import { useStyles } from "./indexStyles";
 import {
   Box,
   Button,
@@ -14,15 +19,11 @@ import {
   Typography,
   TextField,
 } from "@material-ui/core";
-import { useStyles } from "./indexStyles";
 import {
   getQueryStringParameterValue,
   getRoute,
   setStorageItem,
 } from "../../helpers/utils";
-import { validations } from "../../messages/validation";
-import { Utils } from "../../constants/utils";
-import { isLoginButtonDisabled } from "../../helpers/validation";
 
 const Login = ({
   classes: {
@@ -172,9 +173,7 @@ const Login = ({
         </Box>
 
         <Box className={formGroup}>
-          <Typography variant={"body2"} className={question}>
-            Employee ID
-          </Typography>
+          <FieldLabel label={"Employee ID"} />
           <TextField
             id="standard-basic"
             variant="outlined"
@@ -190,9 +189,7 @@ const Login = ({
         </Box>
 
         <Box className={formGroup}>
-          <Typography variant={"body2"} className={question}>
-            Password
-          </Typography>
+          <FieldLabel label={"Password"} />
           <OutlinedInput
             id="outlined-adornment-password"
             type={form.showPassword ? "text" : "password"}

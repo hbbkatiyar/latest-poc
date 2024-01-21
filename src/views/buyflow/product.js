@@ -5,17 +5,19 @@ import CallToAction from "./partials/cta";
 import ChipSelect from "./partials/chipSelect";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ErrorMessage from "./partials/error";
+import FieldLabel from "../../components/label";
 import useApi from "../../hooks/useApi";
-import { Box, Grid, Hidden, TextField, Typography } from "@material-ui/core";
+import { Box, TextField, Typography } from "@material-ui/core";
+import { ReducerUtils } from "../../constants/reducers";
+import { useHistory } from "react-router";
+import { useStyles } from "./indexFormStyles";
 import {
   clearBuyflowStorageData,
   getRoute,
   getStorageItem,
   setStorageItem,
 } from "../../helpers/utils";
-import { ReducerUtils } from "../../constants/reducers";
-import { useHistory } from "react-router";
-import { useStyles } from "./indexFormStyles";
+import { DEFAULT_PRODUCT_SUM_ASSURED, DEFAULT_PRODUCT_PREMIUM } from "../../constants";
 
 function ProductSelection({
   classes: { container, main, formGroup, loaderBox, question, productName },
@@ -33,10 +35,10 @@ function ProductSelection({
   const [form, setForm] = useState({
     sumAssured: getStorageItem("sumAssured")
       ? Number(getStorageItem("sumAssured"))
-      : 300000,
+      : DEFAULT_PRODUCT_SUM_ASSURED,
     premium: getStorageItem("premium")
       ? Number(getStorageItem("premium"))
-      : 599,
+      : DEFAULT_PRODUCT_PREMIUM,
     partnerId: getStorageItem("partnerId"),
   });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -55,15 +57,11 @@ function ProductSelection({
       form.sumAssured &&
       state?.productDetails?.premiumMapping[form.sumAssured]
     ) {
-      console.log(
-        "here",
-        state?.productDetails?.premiumMapping[form.sumAssured]
-      );
       setFormState(
         "premium",
         state?.productDetails?.premiumMapping[form.sumAssured]
           ? state?.productDetails?.premiumMapping[form.sumAssured]
-          : 599
+          : DEFAULT_PRODUCT_PREMIUM
       );
     }
   }, [form.sumAssured]);
@@ -80,20 +78,6 @@ function ProductSelection({
   const navigateTo = (pathname) => history.push({ pathname });
 
   const onSubmit = (event) => {
-    console.log("onSubmit");
-    console.log(form);
-    event.preventDefault();
-
-    clearBuyflowStorageData();
-    setStorageItem("sumAssured", form.sumAssured);
-    setStorageItem("premium", form.premium);
-
-    navigateTo(getRoute("customer"));
-  };
-
-  const handleClick = (event) => {
-    console.log("handleClick");
-    console.log(form);
     event.preventDefault();
 
     clearBuyflowStorageData();
@@ -107,25 +91,6 @@ function ProductSelection({
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
         <form noValidate autoComplete="off" onSubmit={onSubmit}>
-          {/* <Box m={3}>
-            <Typography variant={"body2"} className={question}>
-              {state?.productDetails?.name}
-            </Typography>
-          </Box> */}
-          {/* <Box className={formGroup}>
-            <Typography variant="body2" className={question}>
-              Product Name
-            </Typography>
-            <TextField
-              id="standard-basic"
-              variant="outlined"
-              value={state?.productDetails?.name}
-              name="product_name"
-              onChange={handleChange}
-              disabled={true}
-              fullWidth
-            />
-          </Box> */}
           <Box
             className={productName}
             justifyContent={"center"}
@@ -137,28 +102,29 @@ function ProductSelection({
           </Box>
 
           <Box className={formGroup}>
-            <Typography variant="body2" className={question}>
-              Sum Assured
-            </Typography>
-            <Box display="flex" justifyContent="center" textAlign="center" style={{width: '100%'}}>
-            <ChipSelect
-              compact={false}
-              fontWeight={"regular"}
-              fieldname={"sumAssured"}
-              handleChangeChipSelect={handleChangeChipSelect}
-              options={[
-                { title: "3 Lacs", value: 300000 },
-                { title: "5 Lacs", value: 500000 },
-              ]}
-              selectedItem={form?.sumAssured}
-            />
+            <FieldLabel label={"Sum Assured"} />
+            <Box
+              display="flex"
+              justifyContent="center"
+              textAlign="center"
+              style={{ width: "100%" }}
+            >
+              <ChipSelect
+                compact={false}
+                fontWeight={"regular"}
+                fieldname={"sumAssured"}
+                handleChangeChipSelect={handleChangeChipSelect}
+                options={[
+                  { title: "3 Lacs", value: 300000 },
+                  { title: "5 Lacs", value: 500000 },
+                ]}
+                selectedItem={form?.sumAssured}
+              />
             </Box>
           </Box>
 
           <Box className={formGroup}>
-            <Typography variant="body2" className={question}>
-              Premium
-            </Typography>
+            <FieldLabel label={"Premium"} />
             {form?.premium ? (
               <TextField
                 id="standard-basic"
@@ -183,7 +149,7 @@ function ProductSelection({
             isDisabled={isFormSubmitted || !form.sumAssured || !form.premium}
             isFormSubmitted={isFormSubmitted}
             text={"Buy Product"}
-            handleClick={handleClick}
+            handleClick={{}}
           />
         </form>
       </Box>
