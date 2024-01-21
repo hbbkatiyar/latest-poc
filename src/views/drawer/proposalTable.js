@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { Box, Button, Grid, Typography } from "@material-ui/core";
-// import Paper from '@material-ui/core/Paper';
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import csvDownload from "json-to-csv-export";
-import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import ShareIcon from "@material-ui/icons/Share";
+import {
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@material-ui/core";
+import { proposalRows } from "../../defaultValues";
+import CustomTabs from "./customTabs";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -33,48 +32,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(proposal, name, status) {
-  return { proposal, name, status };
-}
-
-const rows = {
-  0: [
-    createData("PR0003", "-", "e-KYC"),
-    createData("PR0005", "Amit Kumar", "Nominee"),
-  ],
-  1: [
-    createData("PR0001", "Ansh Katiyar", "Payment"),
-    createData("PR0003", "-", "e-KYC"),
-    createData("PR0005", "Amit Kumar", "Nominee"),
-  ],
-  2: [
-    createData("PR0001", "Ansh Katiyar", "Payment"),
-    createData("PR0002", "Palak Gupta", "Payment"),
-    createData("PR0003", "-", "e-KYC"),
-    createData("PR0004", "Man Singla", "Nominee"),
-    createData("PR0005", "Amit Kumar", "Nominee"),
-  ],
-};
-
-const data = {
-  0: [
-    { proposal: "PR0003", name: "-", status: "e-KYC" },
-    { proposal: "PR0005", name: "Amit Kumar", status: "Nominee" },
-  ],
-  1: [
-    { proposal: "PR0001", name: "Ansh Katiyar", status: "Payment" },
-    { proposal: "PR0003", name: "-", status: "e-KYC" },
-    { proposal: "PR0005", name: "Amit Kumar", status: "Nominee" },
-  ],
-  2: [
-    { proposal: "PR0001", name: "Ansh Katiyar", status: "Payment" },
-    { proposal: "PR0002", name: "Palak Gupta", status: "Payment" },
-    { proposal: "PR0003", name: "-", status: "e-KYC" },
-    { proposal: "PR0004", name: "Man Singla", status: "Nominee" },
-    { proposal: "PR0005", name: "Amit Kumar", status: "Nominee" },
-  ],
-};
-
 const useStyles = makeStyles({
   table: {
     minWidth: 350,
@@ -90,63 +47,28 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables({ clickHandler }) {
   const classes = useStyles();
-  const [value, setValue] = useState(localStorage.getItem("proposalDashboardTab") ? Number(localStorage.getItem("proposalDashboardTab")) : 1);
+  const [value, setValue] = useState(
+    localStorage.getItem("proposalDashboardTab")
+      ? Number(localStorage.getItem("proposalDashboardTab"))
+      : 1
+  );
 
-  const dataToConvert = {
-    data: data[value],
-    filename: "proposal",
-    delimiter: ",",
-    headers: ["Proposal", "Name", "Status"],
-  };
-
-  const tabIndex = {
-    0: "Month",
-    1: "Week",
-    2: "Year"
-  };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const handleChange = (event, newValue) => setValue(newValue);
 
   return (
     <>
       <Box mt={1} mb={2} display={"flex"} justifyContent={"center"}>
-        <Paper>
-          <Tabs
-            value={value}
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={handleChange}
-            aria-label="disabled tabs example"
-          >
-            <Tab label="Week" />
-            <Tab label="Month" />
-            <Tab label="Year" />
-          </Tabs>
-        </Paper>
+        <CustomTabs value={value} handleChange={handleChange} />
       </Box>
 
-      <Box mt={2} ml={1} mr={1} mb={2} display={"flex"} justifyContent={"center"}>
-        <Box>
-          <Typography variant="subtitle2">Proposal: {`0${rows[value].length}`}</Typography>
-        </Box>
-        {/* <Box>
-          <Button
-            type={"click"}
-            variant={"contained"}
-            className={`${classes.buyButton} ${classes.button}`}
-            color={"primary"}
-            size={"small"}
-            onClick={() => csvDownload(dataToConvert)}
-          >
-            <ShareIcon />
-          </Button>
-        </Box> */}
+      <Box m={2} display={"flex"} justifyContent={"center"}>
+        <Typography variant="subtitle2">
+          Proposal: {`0${proposalRows[value].length}`}
+        </Typography>
       </Box>
 
       <TableContainer component={Paper}>
-        <Table aria-label="customized table">
+        <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Proposal</StyledTableCell>
@@ -155,13 +77,12 @@ export default function CustomizedTables({ clickHandler }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows[value].map((row) => (
+            {proposalRows[value].map((row) => (
               <StyledTableRow key={row.proposal}>
                 <StyledTableCell component="th" scope="row">
                   {row.proposal}
                 </StyledTableCell>
                 <StyledTableCell>{row.name}</StyledTableCell>
-
                 <StyledTableCell>
                   <Box onClick={() => clickHandler(row.status)}>
                     <Typography
@@ -176,10 +97,6 @@ export default function CustomizedTables({ clickHandler }) {
                     </Typography>
                   </Box>
                 </StyledTableCell>
-
-                {/* {row.status !== "e-KYC" && (
-                <StyledTableCell>{row.status}</StyledTableCell>
-              )} */}
               </StyledTableRow>
             ))}
           </TableBody>

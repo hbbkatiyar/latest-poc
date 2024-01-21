@@ -3,15 +3,13 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { useStyles } from "./indexFormStyles";
 import { Box, Typography } from "@material-ui/core";
 import PolicyTable from "./policyTable";
+import SectionTitle from "../../components/sectionTitle";
 
-function Policies({ classes: { container, main, section } }) {
+function Policies({ classes: { container, main, } }) {
   return (
     <Box className={main}>
       <Box container={"true"} justifyContent="center" className={container}>
-        <Box mt={1}>
-          <Typography variant="h5">Policy COI</Typography>
-        </Box>
-        {/* <Box m={1}>&nbsp;</Box> */}
+        <SectionTitle title={"Policy COI"} />
         <PolicyTable />
       </Box>
     </Box>

@@ -1,40 +1,43 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Alert from "@material-ui/lab/Alert";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import SectionTitle from "../../components/sectionTitle";
+import ShareIcon from "@material-ui/icons/Share";
+import isEmail from "validator/lib/isEmail";
+import isMobilePhone from "validator/lib/isMobilePhone";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { useStyles } from "./indexFormStyles";
 import {
   Box,
   Button,
   Dialog,
   DialogTitle,
   Grid,
-  Hidden,
+  Snackbar,
   TextField,
   Typography,
 } from "@material-ui/core";
 import { redirectWithBlank } from "../../helpers/utils";
-import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import ShareIcon from "@material-ui/icons/Share";
 import { Utils } from "../../constants/utils";
-import { FORM_FIELD_MOBILE } from "../../constants/field";
+import { useStyles } from "./indexFormStyles";
 import { validations } from "../../messages/validation";
-import isEmail from "validator/lib/isEmail";
-import isMobilePhone from "validator/lib/isMobilePhone";
-import Alert from "@material-ui/lab/Alert";
-import Snackbar from "@material-ui/core/Snackbar";
+import { FORM_FIELD_MOBILE } from "../../constants/field";
 
 function KnowledgeHub({
   classes: {
-    container,
-    main,
-    mainKnowledgeHub,
-    section,
-    question,
     buyButton,
     button,
-    formGroup,
+    container,
     customBtn,
+    formGroup,
+    mainKnowledgeHub,
+    question,
   },
 }) {
+  const list = [
+    { title: "Fact Sheet", slug: "factsheet" },
+    { title: "FAQs", slug: "faqs" },
+    { title: "Videos", slug: "videos" },
+  ];
   const [modal, setModal] = useState({ open: false, snackbar: false });
   const [form, setForm] = useState({ mobile: "", email: "" });
   const [errorMessage, setErrorMessage] = useState({
@@ -46,22 +49,15 @@ function KnowledgeHub({
     mobile: false,
   });
 
-  useEffect(() => {
-    validateEmail("email");
-  }, [form.email]);
+  useEffect(() => validateEmail("email"), [form.email]);
 
-  useEffect(() => {
-    validateMobile();
-  }, [form.mobile]);
+  useEffect(() => validateMobile(), [form.mobile]);
 
-  const handleClose = (keyname = "open") => {
-    console.log("here");
+  const handleClose = (keyname = "open") =>
     setModal({ ...modal, [keyname]: false });
-  };
 
-  const handleChange = (event) => {
+  const handleChange = (event) =>
     setForm({ ...form, [event.target.name]: event.target.value });
-  };
 
   const setStateVariables = (key, isValid, message) => {
     setFormState("hasError", !isValid);
@@ -76,22 +72,6 @@ function KnowledgeHub({
 
   const setErrorMessageState = (name, value) =>
     setErrorMessage({ ...errorMessage, [name]: value });
-
-  const downloadClickHandler = (slug) => {
-    redirectWithBlank(
-      slug === "videos"
-        ? "https://www.youtube.com/watch?v=RpSsF4ZMTCg"
-        : "/Aviva_New_Group_Term_Life_122N141V03.pdf"
-    );
-  };
-
-  const shareClickHandler = () => {
-    setModal({ ...modal, open: true });
-  };
-
-  const shareSubmitHandler = () => {
-    setModal({ ...modal, open: false, snackbar: true });
-  };
 
   const validateMobile = () => {
     if (form[FORM_FIELD_MOBILE]) {
@@ -138,19 +118,30 @@ function KnowledgeHub({
     }
   };
 
+  const downloadClickHandler = (slug) => {
+    redirectWithBlank(
+      slug === "videos"
+        ? "https://www.youtube.com/watch?v=RpSsF4ZMTCg"
+        : "/Aviva_New_Group_Term_Life_122N141V03.pdf"
+    );
+  };
+
+  const shareClickHandler = () => setModal({ ...modal, open: true });
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    setModal({ ...modal, open: false, snackbar: true })
+  };
+
   return (
     <Box className={mainKnowledgeHub}>
       <Box container={"true"} justifyContent="center" className={container}>
-        <Box mt={3}>
-          <Typography variant="h5">Knowledge Hub</Typography>
-        </Box>
+        <SectionTitle title={"Knowledge Hub"} />
+
         <Box m={1}>&nbsp;</Box>
         <Box direction="column" style={{ width: "95%" }}>
-          {[
-            { title: "Fact Sheet", slug: "factsheet" },
-            { title: "FAQs", slug: "faqs" },
-            { title: "Videos", slug: "videos" },
-          ].map((item) => {
+          {list.map((item) => {
             return (
               <Grid container spacing={5}>
                 <Grid container item xs>
@@ -210,83 +201,73 @@ function KnowledgeHub({
             <Typography variant="h5">Share Content</Typography>
           </DialogTitle>
 
-          <Box m={2}>
-            <Box className={formGroup}>
-              <Typography variant="body2" className={question}>
-                Mobile Number
-              </Typography>
-              <TextField
-                id="standard-basic"
-                variant="outlined"
-                value={form.mobile}
-                name="mobile"
-                onInput={validateInputLength}
-                onChange={handleChange}
-                autoComplete="off"
-                helperText={errorMessage.mobile}
-                fullWidth
-              />
-            </Box>
-            <Box className={formGroup}>
-              <Typography variant="body2" className={question}>
-                Email
-              </Typography>
-              <TextField
-                id="standard-basic"
-                variant="outlined"
-                value={form.email}
-                name="email"
-                // onInput={validateInputLength}
-                onChange={handleChange}
-                autoComplete="off"
-                helperText={errorMessage.email}
-                fullWidth
-              />
-            </Box>
+          <form noValidate autoComplete="off" onSubmit={onSubmit}>
+            <Box m={2}>
+              <Box className={formGroup}>
+                <Typography variant="body2" className={question}>
+                  Mobile Number
+                </Typography>
+                <TextField
+                  id="standard-basic"
+                  variant="outlined"
+                  value={form.mobile}
+                  name="mobile"
+                  onInput={validateInputLength}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  helperText={errorMessage.mobile}
+                  fullWidth
+                />
+              </Box>
+              <Box className={formGroup}>
+                <Typography variant="body2" className={question}>
+                  Email
+                </Typography>
+                <TextField
+                  id="standard-basic"
+                  variant="outlined"
+                  value={form.email}
+                  name="email"
+                  // onInput={validateInputLength}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  helperText={errorMessage.email}
+                  fullWidth
+                />
+              </Box>
 
-            <Box className={customBtn}>
-              <Button
-                type={"click"}
-                variant={"contained"}
-                className={`${buyButton} ${button}`}
-                color={"primary"}
-                size={"large"}
-                onClick={shareSubmitHandler}
-                fullWidth
-                {...(((!form.mobile && !form.email) ||
-                  (form.mobile && errorMessage.mobile) ||
-                  (form.email && errorMessage.email)) && { disabled: true })}
-              >
-                Share
-              </Button>
+              <Box className={customBtn}>
+                <Button
+                  type={"submit"}
+                  variant={"contained"}
+                  className={`${buyButton} ${button}`}
+                  color={"primary"}
+                  size={"large"}
+                  // onClick={shareSubmitHandler}
+                  fullWidth
+                  {...(((!form.mobile && !form.email) ||
+                    (form.mobile && errorMessage.mobile) ||
+                    (form.email && errorMessage.email)) && { disabled: true })}
+                >
+                  Share
+                </Button>
+              </Box>
+              <Box className={""}>
+                <Button
+                  type={"click"}
+                  variant={"outlined"}
+                  className={`${buyButton} ${button}`}
+                  color={"primary"}
+                  size={"large"}
+                  onClick={() => handleClose("open")}
+                  fullWidth
+                >
+                  Close
+                </Button>
+              </Box>
             </Box>
-            <Box className={""}>
-              <Button
-                type={"click"}
-                variant={"outlined"}
-                className={`${buyButton} ${button}`}
-                color={"primary"}
-                size={"large"}
-                onClick={() => handleClose("open")}
-                fullWidth
-              >
-                Close
-              </Button>
-            </Box>
-          </Box>
+          </form>
         </Dialog>
-        {/* <Box>
-          <Typography variant="h5">Knowledge Hub</Typography>
-        </Box>
-        <Box m={2} justifyContent="left" className={section}>
-          <Typography variant="body2">Factsheet Section</Typography>
-        </Box>
-        <Box m={2} justifyContent="left" className={section}>
-          <Typography variant="body2">FAQs Section</Typography>
-        </Box>
-        <Box m={2} justifyContent="left" className={section}>
-          <Typography variant="body2">Video Section</Typography>
-        </Box> */}
       </Box>
     </Box>
   );
